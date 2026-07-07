@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SunKaset</title>
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif}
+body{background:#f4fbf4;color:#355e3b}
+header{background:linear-gradient(#dff6df,#f4fbf4);text-align:center;padding:40px 20px 120px;position:relative;overflow:hidden}
+.sun{width:130px;height:130px;background:#ffd54f;border-radius:50%;margin:20px auto;position:relative;box-shadow:0 0 30px #ffe082;animation:float 3s ease-in-out infinite}
+.eye{width:10px;height:10px;background:#333;border-radius:50%;position:absolute;top:48px}.l{left:40px}.r{right:40px}
+.smile{width:45px;height:20px;border-bottom:4px solid #333;border-radius:0 0 30px 30px;position:absolute;left:42px;top:70px}
+@keyframes float{50%{transform:translateY(-8px)}}
+.hill{position:absolute;left:0;right:0;bottom:0;height:120px;background:#a5d6a7;border-radius:50% 50% 0 0}
+.farmer{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:70px}
+.container{max-width:1100px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.card h3{margin-bottom:10px}
+button{background:#66bb6a;color:#fff;border:none;padding:12px 20px;border-radius:25px;cursor:pointer}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-top:20px}
+.feature{background:#e8f5e9;padding:18px;border-radius:18px;text-align:center}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px;box-shadow:0 -4px 12px rgba(0,0,0,.08)}
+nav div{text-align:center;color:#2e7d32}
+footer{text-align:center;padding:30px;color:#777;margin-bottom:70px}
+</style>
+</head>
+<body>
+<header>
+<div class="sun"><div class="eye l"></div><div class="eye r"></div><div class="smile"></div></div>
+<h1>☀️ SunKaset</h1>
+<p>นวัตกรรมเกษตรยุคใหม่ ด้วยพลังงานสะอาด</p><br>
+<button>เริ่มใช้งาน</button>
+<div class="hill"></div>
+<div class="farmer">👨‍🌾</div>
+</header>
+
+<div class="container">
+<div class="card">
+<h3>ยินดีต้อนรับ</h3>
+<p>SunKaset ช่วยบริหารจัดการฟาร์ม วิเคราะห์แสงแดด ตรวจสอบสภาพแวดล้อม และสนับสนุนการใช้พลังงานแสงอาทิตย์</p>
+</div>
+
+<h2 style="margin:20px 0">บริการ</h2>
+<div class="features">
+<div class="feature">☀️<br>วิเคราะห์แสงแดด</div>
+<div class="feature">💧<br>ระบบน้ำ</div>
+<div class="feature">🌱<br>สุขภาพพืช</div>
+<div class="feature">⚡<br>Solar Energy</div>
+<div class="feature">🚜<br>เครื่องจักร</div>
+<div class="feature">📈<br>รายงานผล</div>
+</div>
+
+<h2 style="margin:25px 0">แดชบอร์ด</h2>
+<div class="grid">
+<div class="card"><h3>☀️ ความเข้มแสง</h3><h1>82%</h1></div>
+<div class="card"><h3>🌡️ อุณหภูมิ</h3><h1>31°C</h1></div>
+<div class="card"><h3>💧 ความชื้น</h3><h1>68%</h1></div>
+<div class="card"><h3>🔋 พลังงาน</h3><h1>95%</h1></div>
+</div>
+</div>
+
+<footer>© 2026 SunKaset</footer>
+<nav>
+<div>🏠<br>หน้าหลัก</div>
+<div>📊<br>วิเคราะห์</div>
+<div>🌾<br>ฟาร์ม</div>
+<div>👤<br>โปรไฟล์</div>
+</nav>
+</body>
+</html>
