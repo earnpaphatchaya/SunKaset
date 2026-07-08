@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
 
@@ -57,7 +57,7 @@
     }
 
     body {
-      font-family: "Anuphan", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Noto Sans Thai", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       line-height: 1.65;
       background:
@@ -1556,6 +1556,495 @@
         transition-duration: 0.01ms !important;
       }
     }
+  
+    /* =========================================================
+       UI REFINEMENT — อ่านง่าย สบายตา และเหมาะกับมือถือ
+       ========================================================= */
+    body {
+      font-size: 16px;
+      line-height: 1.72;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    p,
+    .feature-card p,
+    .scenario-card > p,
+    .decision-card > p,
+    .footer-grid a,
+    .footer-grid p {
+      line-height: 1.8;
+    }
+
+    .section {
+      padding: 72px 0;
+    }
+
+    .section-head {
+      max-width: 730px;
+      margin-bottom: 30px;
+    }
+
+    .section-head h2,
+    .preview-copy h2 {
+      font-size: clamp(1.75rem, 2.7vw, 2.65rem);
+      line-height: 1.3;
+      letter-spacing: -0.022em;
+    }
+
+    .section-head p,
+    .preview-copy p {
+      font-size: 0.97rem;
+    }
+
+    .eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.045em;
+    }
+
+    .navbar {
+      height: 72px;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+    }
+
+    .brand-copy strong {
+      font-size: 1.18rem;
+    }
+
+    .nav-links {
+      gap: 23px;
+      font-size: 0.88rem;
+    }
+
+    .btn {
+      min-height: 46px;
+      padding-inline: 19px;
+      border-radius: 13px;
+      font-size: 0.91rem;
+    }
+
+    .hero {
+      padding: 64px 0 82px;
+    }
+
+    .hero-grid {
+      grid-template-columns: minmax(0, 0.94fr) minmax(480px, 1.06fr);
+      gap: 44px;
+    }
+
+    .hero h1 {
+      max-width: 660px;
+      margin-bottom: 18px;
+      font-size: clamp(2.2rem, 4.1vw, 3.85rem);
+      line-height: 1.17;
+      letter-spacing: -0.035em;
+    }
+
+    .hero-copy > p {
+      max-width: 610px;
+      margin-bottom: 26px;
+      font-size: 0.98rem;
+      line-height: 1.85;
+    }
+
+    .hero-visual {
+      min-height: 545px;
+    }
+
+    .hero-simulation-card {
+      width: 235px;
+      padding: 16px;
+    }
+
+    .hero-simulation-card strong {
+      font-size: 1.13rem;
+    }
+
+    .hero-risk-card {
+      width: 175px;
+      padding: 14px 15px;
+    }
+
+    .value-card {
+      padding: 19px 20px;
+      border-radius: 18px;
+    }
+
+    .value-card strong {
+      font-size: 1.48rem;
+    }
+
+    .feature-card,
+    .scenario-card,
+    .decision-card {
+      padding: 22px;
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      font-size: 1.3rem;
+    }
+
+    .control-panel {
+      padding: 22px;
+    }
+
+    .simulation-stage {
+      padding: 17px;
+    }
+
+    .cta {
+      margin-top: 62px;
+      padding: 40px;
+    }
+
+    .cta h2 {
+      font-size: clamp(1.65rem, 2.6vw, 2.4rem);
+      line-height: 1.3;
+    }
+
+    /* Mobile Bottom Navigation */
+    .mobile-tabbar {
+      display: none;
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+        margin-inline: auto;
+      }
+
+      .hero-visual {
+        width: min(800px, 100%);
+        min-height: 520px;
+      }
+    }
+
+    @media (max-width: 860px) {
+      body {
+        padding-bottom: calc(82px + env(safe-area-inset-bottom));
+      }
+
+      .navbar {
+        height: 64px;
+      }
+
+      .nav-inner {
+        gap: 12px;
+      }
+
+      .nav-links,
+      .nav-cta,
+      .menu-button {
+        display: none !important;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+      }
+
+      .brand-copy strong {
+        font-size: 1.08rem;
+      }
+
+      .mobile-tabbar {
+        position: fixed;
+        z-index: 1500;
+        left: 10px;
+        right: 10px;
+        bottom: calc(8px + env(safe-area-inset-bottom));
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        min-height: 66px;
+        padding: 7px 6px;
+        border: 1px solid rgba(21, 60, 37, 0.1);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 14px 40px rgba(18, 57, 31, 0.18);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .mobile-tabbar a {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 2px;
+        padding: 5px 2px;
+        border-radius: 15px;
+        color: #7b887f;
+        font-size: 0.66rem;
+        font-weight: 500;
+        transition: 0.2s ease;
+      }
+
+      .mobile-tabbar a svg {
+        width: 21px;
+        height: 21px;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        fill: none;
+      }
+
+      .mobile-tabbar a.active {
+        color: var(--forest-800);
+        background: var(--leaf-100);
+        font-weight: 600;
+      }
+
+      .mobile-tabbar a.active::before {
+        content: "";
+        position: absolute;
+        top: 2px;
+        width: 18px;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--leaf-500);
+      }
+
+      .hero {
+        padding: 38px 0 48px;
+      }
+
+      .hero-grid {
+        gap: 28px;
+      }
+
+      .hero-copy {
+        text-align: left;
+      }
+
+      .hero h1 {
+        max-width: 600px;
+        font-size: clamp(2rem, 8.8vw, 2.85rem);
+        line-height: 1.24;
+      }
+
+      .hero-copy > p {
+        margin-inline: 0;
+        font-size: 0.94rem;
+      }
+
+      .hero-actions,
+      .hero-proof {
+        justify-content: flex-start;
+      }
+
+      .hero-proof {
+        gap: 10px 14px;
+      }
+
+      .hero-visual {
+        width: 100%;
+        min-height: auto;
+        aspect-ratio: 16 / 10;
+      }
+
+      .mockup-frame {
+        inset: 0;
+        padding: 10px;
+        border-radius: 24px;
+      }
+
+      .mockup-frame img {
+        border-radius: 18px;
+      }
+
+      .hero-simulation-card,
+      .hero-risk-card {
+        display: none;
+      }
+
+      .value-strip {
+        margin-top: 4px;
+      }
+
+      .section {
+        padding: 58px 0;
+      }
+
+      .section-head {
+        margin-bottom: 24px;
+      }
+
+      .section-head h2,
+      .preview-copy h2 {
+        font-size: clamp(1.6rem, 6.4vw, 2.15rem);
+      }
+
+      .stage-top {
+        gap: 12px;
+      }
+
+      footer {
+        margin-top: 64px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --page: calc(100% - 22px);
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .hero-badge {
+        padding: 7px 11px;
+        margin-bottom: 14px;
+        font-size: 0.73rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.9rem, 9.8vw, 2.4rem);
+        line-height: 1.27;
+        letter-spacing: -0.025em;
+      }
+
+      .hero-copy > p {
+        font-size: 0.91rem;
+        line-height: 1.8;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+      }
+
+      .hero-proof {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        aspect-ratio: 4 / 3;
+      }
+
+      .value-strip {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .value-card {
+        padding: 16px;
+      }
+
+      .value-card span {
+        font-size: 0.72rem;
+      }
+
+      .value-card strong {
+        font-size: 1.22rem;
+      }
+
+      .feature-card,
+      .scenario-card,
+      .decision-card {
+        padding: 19px;
+        border-radius: 19px;
+      }
+
+      .feature-card h3,
+      .scenario-card h3 {
+        font-size: 1rem;
+      }
+
+      .feature-card p,
+      .scenario-card > p,
+      .decision-card > p {
+        font-size: 0.86rem;
+      }
+
+      .control-panel,
+      .simulation-stage {
+        padding: 15px;
+        border-radius: 20px;
+      }
+
+      .control-panel h3 {
+        font-size: 1.12rem;
+      }
+
+      .simulation-stage {
+        min-height: 590px;
+      }
+
+      .farm-map {
+        min-height: 360px;
+        border-radius: 17px;
+      }
+
+      .layer-buttons {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .layer-button {
+        text-align: center;
+      }
+
+      .simulation-metrics {
+        gap: 8px;
+      }
+
+      .simulation-metric {
+        min-height: 94px;
+        padding: 11px;
+      }
+
+      .simulation-metric strong {
+        font-size: 1.05rem;
+      }
+
+      .map-label {
+        min-width: 104px;
+        padding: 8px 9px;
+        font-size: 0.62rem;
+      }
+
+      .map-label strong {
+        font-size: 0.75rem;
+      }
+
+      .cta {
+        padding: 28px 20px;
+        border-radius: 24px;
+      }
+
+      .footer-grid {
+        padding-top: 36px;
+      }
+
+      .mobile-tabbar {
+        left: 7px;
+        right: 7px;
+        bottom: calc(6px + env(safe-area-inset-bottom));
+      }
+    }
+
   </style>
 </head>
 
@@ -2055,6 +2544,52 @@
     </div>
   </footer>
 
+
+  <nav class="mobile-tabbar" id="mobileTabbar" aria-label="เมนูหลักสำหรับโทรศัพท์">
+    <a class="active" href="#home" aria-label="หน้าหลัก">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M3 11.5 12 4l9 7.5" />
+        <path d="M5.5 10.5V20h13v-9.5" />
+        <path d="M9.5 20v-6h5v6" />
+      </svg>
+      <span>หน้าหลัก</span>
+    </a>
+
+    <a href="#simulator" aria-label="แปลงจำลอง">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 5.5 9 3l6 2.5L20 3v15.5L15 21l-6-2.5L4 21Z" />
+        <path d="M9 3v15.5M15 5.5V21" />
+      </svg>
+      <span>จำลอง</span>
+    </a>
+
+    <a href="#scenarios" aria-label="เปรียบเทียบแผน">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 20V10M12 20V4M19 20v-7" />
+        <path d="M3 20h18" />
+      </svg>
+      <span>เปรียบเทียบ</span>
+    </a>
+
+    <a href="#insights" aria-label="คำแนะนำจาก AI">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9 18h6" />
+        <path d="M10 22h4" />
+        <path d="M8.2 14.8A7 7 0 1 1 15.8 14.8C14.7 15.7 14 16.6 14 18h-4c0-1.4-.7-2.3-1.8-3.2Z" />
+      </svg>
+      <span>AI Insight</span>
+    </a>
+
+    <a href="#contact" aria-label="ติดต่อ">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4.5 21c.8-4.1 3.3-6 7.5-6s6.7 1.9 7.5 6" />
+      </svg>
+      <span>ติดต่อ</span>
+    </a>
+  </nav>
+
+
   <div class="modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
     <div class="modal-card">
       <div class="modal-top">
@@ -2220,7 +2755,7 @@
     updateSimulation();
 
     const sections = document.querySelectorAll("main section[id], footer[id]");
-    const navLinks = document.querySelectorAll(".nav-links a");
+    const navLinks = document.querySelectorAll(".nav-links a, .mobile-tabbar a");
 
     const sectionObserver = new IntersectionObserver(
       (entries) => {
@@ -2228,10 +2763,13 @@
           if (!entry.isIntersecting) return;
 
           navLinks.forEach((link) => {
-            link.classList.toggle(
-              "active",
-              link.getAttribute("href") === "#" + entry.target.id
-            );
+            const isActive = link.getAttribute("href") === "#" + entry.target.id;
+            link.classList.toggle("active", isActive);
+            if (isActive) {
+              link.setAttribute("aria-current", "page");
+            } else {
+              link.removeAttribute("aria-current");
+            }
           });
         });
       },
@@ -2282,3 +2820,4 @@
   </script>
 </body>
 </html>
+
