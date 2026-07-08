@@ -3,372 +3,1601 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#183f24" />
-  <meta name="description" content="SunKaset AI — เว็บแอปเกษตรอัจฉริยะ วิเคราะห์ฟาร์ม สุขภาพพืช น้ำ ดิน และผลผลิตในหน้าจอเดียว" />
-  <title>SunKaset AI | Smart Farming Platform</title>
+  <meta name="theme-color" content="#153c25" />
+  <meta
+    name="description"
+    content="SunKaset AI จำลองแปลงเกษตรก่อนปลูกจริง วางแผนโซลาร์ บริหารน้ำ และประเมินความเสี่ยงอุทกภัย"
+  />
+  <title>SunKaset AI | Farm Simulation & Decision Support</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 
   <style>
-    :root{
-      --forest:#173e24;
-      --forest-2:#245631;
-      --leaf:#78a900;
-      --leaf-2:#9cc51b;
-      --lime:#ddecba;
-      --cream:#f7f8ef;
-      --paper:#ffffff;
-      --text:#1d2b21;
-      --muted:#6d786f;
-      --line:#e7ebdf;
-      --glass:rgba(255,255,255,.14);
-      --glass-border:rgba(255,255,255,.28);
-      --shadow:0 24px 70px rgba(28,62,36,.15);
-      --page:min(1240px,calc(100% - 40px));
+    :root {
+      --forest-950: #0d2c1a;
+      --forest-900: #153c25;
+      --forest-800: #205431;
+      --forest-700: #2e7042;
+      --leaf-600: #6f9f16;
+      --leaf-500: #8ab51f;
+      --leaf-300: #c9df8b;
+      --leaf-100: #edf5d9;
+      --mint-100: #edf7ef;
+      --sky-100: #e9f5f8;
+      --water: #3a9bb9;
+      --solar: #efbd37;
+      --risk-low: #5dae65;
+      --risk-medium: #e2a83b;
+      --risk-high: #cf5a4e;
+      --text: #1b2a20;
+      --muted: #68766d;
+      --line: #e2e9df;
+      --paper: #ffffff;
+      --page: min(1260px, calc(100% - 40px));
+      --shadow: 0 24px 70px rgba(22, 65, 35, 0.14);
+      --shadow-soft: 0 12px 32px rgba(22, 65, 35, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 22px;
+      --radius-md: 15px;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{
-      font-family:"Anuphan",system-ui,sans-serif;
-      color:var(--text);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Anuphan", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      line-height: 1.65;
       background:
-        radial-gradient(circle at 10% 10%,#eef7dd 0,transparent 28%),
-        linear-gradient(180deg,#f8fbf5 0%,#f5f7ef 100%);
-      line-height:1.65;
-      overflow-x:hidden;
+        radial-gradient(circle at 8% 5%, rgba(201, 223, 139, 0.32), transparent 26%),
+        linear-gradient(180deg, #f8fbf5 0%, #f4f8f1 100%);
+      overflow-x: hidden;
     }
-    img{display:block;max-width:100%}
-    a{text-decoration:none;color:inherit}
-    button,input,select{font:inherit}
-    .shell{width:var(--page);margin:auto}
 
-    /* NAV */
-    .nav{
-      position:sticky;top:0;z-index:1000;
-      background:rgba(248,251,245,.86);
-      backdrop-filter:blur(18px);
-      border-bottom:1px solid rgba(25,72,36,.08);
+    button,
+    input,
+    select {
+      font: inherit;
     }
-    .nav-inner{
-      width:var(--page);height:76px;margin:auto;
-      display:flex;align-items:center;justify-content:space-between;gap:24px;
-    }
-    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
-    .brand-mark{
-      width:46px;height:46px;border-radius:15px;
-      display:grid;place-items:center;
-      background:linear-gradient(145deg,#dff0ad,#f8ffe2);
-      box-shadow:0 10px 22px rgba(67,105,32,.18);
-    }
-    .brand-mark svg{width:31px}
-    .brand-copy strong{display:block;font-size:1.28rem;color:var(--forest);line-height:1.05}
-    .brand-copy span{font-size:.73rem;color:var(--muted)}
-    .nav-links{display:flex;align-items:center;gap:28px;font-size:.93rem;color:#4d5d51}
-    .nav-links a{position:relative;padding:27px 0 23px}
-    .nav-links a::after{
-      content:"";position:absolute;left:0;right:0;bottom:16px;height:2px;
-      background:var(--leaf);transform:scaleX(0);transition:.22s;
-    }
-    .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
-    .nav-links a:hover,.nav-links a.active{color:var(--forest)}
-    .menu-btn{display:none;border:1px solid var(--line);background:#fff;width:44px;height:44px;border-radius:12px;cursor:pointer}
 
-    .btn{
-      min-height:48px;padding:0 21px;border-radius:14px;border:0;
-      display:inline-flex;align-items:center;justify-content:center;gap:9px;
-      font-weight:600;cursor:pointer;transition:.22s ease;
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
     }
-    .btn-primary{
-      color:#fff;background:linear-gradient(135deg,var(--forest-2),var(--forest));
-      box-shadow:0 12px 28px rgba(23,62,36,.2);
-    }
-    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(23,62,36,.27)}
-    .btn-light{background:#fff;color:var(--forest);border:1px solid #d9e2d5}
-    .btn-light:hover{transform:translateY(-2px);border-color:#c2d3b9}
 
-    /* HERO */
-    .hero{
-      position:relative;padding:78px 0 92px;overflow:hidden;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
-    .hero::before{
-      content:"";position:absolute;left:-120px;top:80px;width:340px;height:340px;border-radius:50%;
-      background:#dceeb8;filter:blur(80px);opacity:.55;
-    }
-    .hero::after{
-      content:"";position:absolute;right:-130px;bottom:20px;width:400px;height:400px;border-radius:50%;
-      background:#c8e1c2;filter:blur(90px);opacity:.5;
-    }
-    .hero-grid{
-      position:relative;z-index:2;
-      display:grid;grid-template-columns:.9fr 1.1fr;gap:58px;align-items:center;
-    }
-    .pill{
-      display:inline-flex;align-items:center;gap:9px;
-      padding:9px 14px;border-radius:999px;
-      background:#edf6d5;color:#466319;font-weight:600;font-size:.86rem;
-      margin-bottom:18px;
-    }
-    .pill i{width:8px;height:8px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 5px rgba(120,169,0,.12)}
-    h1{
-      font-size:clamp(2.7rem,5.8vw,5.5rem);line-height:1.02;
-      letter-spacing:-.055em;color:var(--forest);margin-bottom:22px;
-    }
-    .hero-copy p{font-size:1.08rem;color:#536156;max-width:620px;margin-bottom:30px}
-    .hero-actions{display:flex;gap:13px;flex-wrap:wrap}
-    .hero-proof{display:flex;gap:20px;flex-wrap:wrap;margin-top:28px;color:#667268;font-size:.88rem}
-    .hero-proof span{display:flex;align-items:center;gap:8px}
-    .check{width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#e7f2cc;color:#4e7210;font-weight:700;font-size:.74rem}
 
-    .mockup-wrap{
-      position:relative;border-radius:34px;padding:16px;
-      background:rgba(255,255,255,.54);
-      border:1px solid rgba(255,255,255,.8);
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(14px);
+    img,
+    svg {
+      display: block;
+      max-width: 100%;
     }
-    .mockup-wrap img{border-radius:25px;width:100%}
-    .float-card{
-      position:absolute;padding:14px 16px;border-radius:18px;
-      background:rgba(24,62,36,.78);color:#fff;
-      border:1px solid rgba(255,255,255,.22);
-      backdrop-filter:blur(16px);
-      box-shadow:0 18px 42px rgba(16,51,29,.24);
-      animation:float 4s ease-in-out infinite;
-      min-width:145px;
-    }
-    .float-card strong{display:block;font-size:1.28rem}
-    .float-card small{opacity:.75}
-    .float-card.one{left:-26px;bottom:44px}
-    .float-card.two{right:-20px;top:38px;animation-delay:-1.5s}
-    @keyframes float{50%{transform:translateY(-8px)}}
 
-    /* STATS */
-    .stats{
-      margin-top:-40px;position:relative;z-index:3;
-      display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+    .shell {
+      width: var(--page);
+      margin-inline: auto;
     }
-    .stat{
-      background:rgba(255,255,255,.88);border:1px solid rgba(35,86,49,.08);
-      border-radius:20px;padding:22px;box-shadow:0 12px 28px rgba(32,69,39,.07);
-    }
-    .stat small{color:var(--muted)}
-    .stat strong{display:block;color:var(--forest);font-size:1.8rem;margin-top:5px}
 
-    /* SECTIONS */
-    .section{padding:86px 0}
-    .section-head{max-width:780px;margin-bottom:32px}
-    .eyebrow{color:#5f800d;font-weight:700;font-size:.86rem;letter-spacing:.07em;text-transform:uppercase}
-    h2{font-size:clamp(2rem,3.3vw,3.35rem);line-height:1.15;color:var(--forest);margin:8px 0 12px}
-    .section-head p{color:var(--muted)}
+    .section {
+      padding: 88px 0;
+    }
 
-    .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
-    .feature-card{
-      padding:25px;border-radius:22px;background:#fff;border:1px solid var(--line);
-      box-shadow:0 10px 28px rgba(31,70,40,.06);transition:.24s;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: #56770f;
+      font-size: 0.84rem;
+      font-weight: 700;
+      letter-spacing: 0.065em;
+      text-transform: uppercase;
     }
-    .feature-card:hover{transform:translateY(-7px);box-shadow:0 18px 42px rgba(31,70,40,.12)}
-    .icon{
-      width:54px;height:54px;border-radius:16px;display:grid;place-items:center;
-      background:#edf5d9;font-size:1.45rem;margin-bottom:18px;
-    }
-    .feature-card h3{color:var(--forest);margin-bottom:9px}
-    .feature-card p{color:var(--muted);font-size:.92rem}
 
-    /* EXPERIENCE */
-    .experience{
-      background:linear-gradient(135deg,#173e24,#284f31);
-      color:#fff;overflow:hidden;position:relative;
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--leaf-500);
+      box-shadow: 0 0 0 5px rgba(138, 181, 31, 0.13);
     }
-    .experience::before{
-      content:"";position:absolute;inset:0;
+
+    .section-head {
+      max-width: 780px;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      margin: 9px 0 13px;
+      color: var(--forest-900);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .btn {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 21px;
+      border: 0;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.22s ease;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(135deg, var(--forest-700), var(--forest-950));
+      box-shadow: 0 13px 28px rgba(21, 60, 37, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 17px 36px rgba(21, 60, 37, 0.28);
+    }
+
+    .btn-outline {
+      color: var(--forest-900);
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid #d4dfd1;
+    }
+
+    .btn-outline:hover {
+      transform: translateY(-2px);
+      background: var(--paper);
+      border-color: #bdcfb7;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 76px;
+      border-bottom: 1px solid rgba(21, 60, 37, 0.08);
+      background: rgba(248, 251, 245, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      width: var(--page);
+      height: 100%;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: max-content;
+    }
+
+    .brand-mark {
+      width: 47px;
+      height: 47px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      background: linear-gradient(145deg, #ddedaa, #fbffe9);
+      box-shadow: 0 10px 23px rgba(79, 116, 27, 0.18);
+    }
+
+    .brand-mark svg {
+      width: 33px;
+      height: 33px;
+    }
+
+    .brand-copy strong {
+      display: block;
+      color: var(--forest-900);
+      font-size: 1.28rem;
+      line-height: 1.05;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-size: 0.72rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 27px;
+      color: #4c5c51;
+      font-size: 0.92rem;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 27px 0 23px;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 16px;
+      height: 2px;
+      background: var(--leaf-500);
+      transform: scaleX(0);
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--forest-900);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+
+    .menu-button {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: white;
+      color: var(--forest-900);
+      cursor: pointer;
+    }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: 80px 0 96px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: -150px;
+      top: 120px;
+      width: 390px;
+      height: 390px;
+      border-radius: 50%;
+      background: rgba(201, 223, 139, 0.46);
+      filter: blur(90px);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -170px;
+      bottom: -20px;
+      width: 430px;
+      height: 430px;
+      border-radius: 50%;
+      background: rgba(168, 212, 179, 0.38);
+      filter: blur(90px);
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 58px;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      margin-bottom: 18px;
+      border-radius: 999px;
+      color: #486511;
+      background: #edf6d6;
+      font-size: 0.86rem;
+      font-weight: 600;
+    }
+
+    .hero-badge span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--leaf-500);
+      box-shadow: 0 0 0 5px rgba(138, 181, 31, 0.13);
+    }
+
+    .hero h1 {
+      max-width: 710px;
+      margin-bottom: 22px;
+      color: var(--forest-900);
+      font-size: clamp(2.7rem, 5.6vw, 5.4rem);
+      line-height: 1.03;
+      letter-spacing: -0.055em;
+    }
+
+    .hero-copy > p {
+      max-width: 650px;
+      margin-bottom: 30px;
+      color: #526057;
+      font-size: 1.08rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+    }
+
+    .hero-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 28px;
+      color: #637066;
+      font-size: 0.87rem;
+    }
+
+    .hero-proof span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .proof-check {
+      width: 21px;
+      height: 21px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #4e7010;
+      background: #e7f1cd;
+      font-size: 0.73rem;
+      font-weight: 700;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 620px;
+    }
+
+    .mockup-frame {
+      position: absolute;
+      inset: 0 0 0 7%;
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.86);
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.56);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .mockup-frame img {
+      width: 100%;
+      height: 100%;
+      border-radius: 25px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-simulation-card {
+      position: absolute;
+      z-index: 5;
+      left: -1%;
+      bottom: 38px;
+      width: 252px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.27);
+      border-radius: 20px;
+      color: white;
+      background: rgba(20, 58, 34, 0.82);
+      box-shadow: 0 20px 50px rgba(16, 50, 28, 0.28);
+      backdrop-filter: blur(16px);
+      animation: floatCard 4.4s ease-in-out infinite;
+    }
+
+    .hero-simulation-card strong {
+      display: block;
+      margin: 4px 0;
+      font-size: 1.28rem;
+    }
+
+    .hero-simulation-card small {
+      color: rgba(255, 255, 255, 0.74);
+    }
+
+    .hero-risk-card {
+      position: absolute;
+      z-index: 6;
+      right: -2%;
+      top: 44px;
+      width: 190px;
+      padding: 15px 17px;
+      border: 1px solid rgba(255, 255, 255, 0.27);
+      border-radius: 18px;
+      color: white;
+      background: rgba(39, 85, 49, 0.78);
+      box-shadow: 0 18px 44px rgba(16, 50, 28, 0.24);
+      backdrop-filter: blur(16px);
+      animation: floatCard 4.4s ease-in-out infinite -1.6s;
+    }
+
+    .risk-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .risk-badge {
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: #6c4b00;
+      background: #ffeab0;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    @keyframes floatCard {
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    /* Value strip */
+    .value-strip {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: -42px;
+    }
+
+    .value-card {
+      padding: 22px;
+      border: 1px solid rgba(31, 84, 49, 0.08);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .value-card span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .value-card strong {
+      color: var(--forest-900);
+      font-size: 1.7rem;
+      line-height: 1.1;
+    }
+
+    /* Features */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 17px;
+    }
+
+    .feature-card {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      box-shadow: 0 10px 30px rgba(30, 71, 40, 0.06);
+      transition: 0.24s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 20px 45px rgba(30, 71, 40, 0.12);
+    }
+
+    .feature-icon {
+      width: 55px;
+      height: 55px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 17px;
+      background: var(--leaf-100);
+      font-size: 1.45rem;
+    }
+
+    .feature-card h3 {
+      margin-bottom: 9px;
+      color: var(--forest-900);
+      font-size: 1.06rem;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 0.91rem;
+    }
+
+    /* Simulator */
+    .simulator-section {
+      position: relative;
+      background: linear-gradient(140deg, #133c24 0%, #245a33 100%);
+      color: white;
+      overflow: hidden;
+    }
+
+    .simulator-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
-        radial-gradient(circle at 10% 20%,rgba(189,223,101,.15),transparent 30%),
-        radial-gradient(circle at 88% 82%,rgba(255,255,255,.08),transparent 28%);
+        radial-gradient(circle at 10% 15%, rgba(201, 223, 139, 0.18), transparent 28%),
+        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.08), transparent 28%);
+      pointer-events: none;
     }
-    .experience-grid{position:relative;display:grid;grid-template-columns:.88fr 1.12fr;gap:58px;align-items:center}
-    .experience .eyebrow{color:#cfe48f}
-    .experience h2{color:#fff}
-    .experience p{color:rgba(255,255,255,.72)}
-    .experience-list{display:grid;gap:13px;margin-top:25px}
-    .experience-item{display:flex;gap:12px;align-items:flex-start}
-    .experience-item b{display:block;margin-bottom:2px}
-    .experience-item span{color:rgba(255,255,255,.67);font-size:.9rem}
-    .experience-shot{
-      display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:end;
-    }
-    .phone-card{
-      border-radius:34px;padding:10px;background:rgba(255,255,255,.1);
-      border:1px solid rgba(255,255,255,.22);box-shadow:0 25px 60px rgba(0,0,0,.25);
-    }
-    .phone-card img{border-radius:27px;height:560px;width:100%;object-fit:cover;object-position:center top}
-    .phone-card:last-child{transform:translateY(48px)}
 
-    /* HOW */
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .step{
-      position:relative;background:#fff;border:1px solid var(--line);
-      border-radius:22px;padding:27px;overflow:hidden;
+    .simulator-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 30px;
+      align-items: start;
     }
-    .step-no{
-      position:absolute;right:17px;top:6px;font-size:4.5rem;line-height:1;
-      font-weight:700;color:#eff3e8;
-    }
-    .step h3{position:relative;color:var(--forest);margin:11px 0 8px}
-    .step p{position:relative;color:var(--muted);font-size:.92rem}
 
-    /* DASHBOARD */
-    .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
-    .dash-card{
-      background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;
+    .simulator-section .eyebrow {
+      color: #d4e99d;
     }
-    .dash-card .label{color:var(--muted);font-size:.86rem}
-    .dash-card strong{display:block;color:var(--forest);font-size:2rem;margin:5px 0}
-    .bar{height:8px;background:#edf0e8;border-radius:99px;overflow:hidden;margin-top:12px}
-    .bar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--leaf),var(--leaf-2))}
-    .insight{
-      margin-top:20px;display:grid;grid-template-columns:1fr .8fr;gap:18px;
+
+    .simulator-section .section-head h2 {
+      color: white;
     }
-    .insight-card{
-      background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;
+
+    .simulator-section .section-head p {
+      color: rgba(255, 255, 255, 0.72);
     }
-    .chart{
-      height:210px;margin-top:15px;border-radius:17px;
+
+    .control-panel {
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.09);
+      box-shadow: 0 24px 62px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(16px);
+    }
+
+    .control-panel h3 {
+      margin-bottom: 17px;
+      font-size: 1.3rem;
+    }
+
+    .control-list {
+      display: grid;
+      gap: 17px;
+    }
+
+    .control-group label {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .control-value {
+      color: #e7f6ba;
+      font-weight: 700;
+    }
+
+    .control-group input[type="range"] {
+      width: 100%;
+      accent-color: #b5dc51;
+    }
+
+    .control-group select {
+      width: 100%;
+      padding: 12px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+    }
+
+    .control-group select option {
+      color: var(--text);
+      background: white;
+    }
+
+    .switch-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .switch-copy strong {
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    .switch-copy span {
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.74rem;
+    }
+
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 27px;
+    }
+
+    .switch input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .switch-track {
+      position: absolute;
+      inset: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.19);
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .switch-track::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: white;
+      transition: 0.2s ease;
+    }
+
+    .switch input:checked + .switch-track {
+      background: #a8cf3e;
+    }
+
+    .switch input:checked + .switch-track::after {
+      transform: translateX(21px);
+    }
+
+    .simulation-stage {
+      min-height: 635px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(18px);
+    }
+
+    .stage-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .stage-title strong {
+      display: block;
+      font-size: 1.05rem;
+    }
+
+    .stage-title span {
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.77rem;
+    }
+
+    .layer-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .layer-button {
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.76);
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.72rem;
+    }
+
+    .layer-button.active {
+      color: var(--forest-950);
+      background: #eaf6c9;
+      border-color: #eaf6c9;
+      font-weight: 700;
+    }
+
+    .farm-map {
+      position: relative;
+      min-height: 435px;
+      overflow: hidden;
+      border-radius: 22px;
       background:
-        linear-gradient(to top,rgba(120,169,0,.16),transparent 66%),
-        repeating-linear-gradient(to right,transparent 0 70px,#edf0ea 71px),
-        repeating-linear-gradient(to bottom,transparent 0 41px,#edf0ea 42px);
-      position:relative;overflow:hidden;
+        linear-gradient(29deg, transparent 49%, rgba(255, 255, 255, 0.1) 50% 51%, transparent 52%),
+        linear-gradient(-24deg, transparent 49%, rgba(255, 255, 255, 0.09) 50% 51%, transparent 52%),
+        repeating-linear-gradient(90deg, #557e3d 0 34px, #6d9849 34px 69px);
+      background-size: 86px 61px, 86px 61px, auto;
+      isolation: isolate;
     }
-    .chart svg{position:absolute;inset:0;width:100%;height:100%}
-    .ai-box{
-      height:100%;background:linear-gradient(145deg,#edf5dc,#f9fbf4);
-      display:flex;flex-direction:column;justify-content:space-between;
+
+    .farm-map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(189, 223, 101, 0.35), transparent 21%),
+        radial-gradient(circle at 74% 70%, rgba(39, 112, 56, 0.34), transparent 28%);
+      z-index: 0;
     }
-    .ai-tag{display:inline-flex;width:max-content;padding:7px 10px;border-radius:99px;background:#dcebac;color:#4c6716;font-size:.78rem;font-weight:700}
-    .ai-box h3{color:var(--forest);font-size:1.55rem;margin:15px 0 8px}
-    .ai-box p{color:var(--muted)}
-    .recommendation{margin-top:18px;padding:15px;border-radius:16px;background:#fff;border:1px solid #e5eadc}
+
+    .field-boundary {
+      position: absolute;
+      z-index: 2;
+      inset: 48px 56px 45px;
+      border: 3px dashed rgba(255, 255, 255, 0.84);
+      clip-path: polygon(9% 4%, 79% 0, 100% 25%, 90% 90%, 42% 100%, 0 74%);
+      background: rgba(141, 191, 58, 0.2);
+    }
+
+    .water-channel {
+      position: absolute;
+      z-index: 4;
+      left: -3%;
+      right: -3%;
+      top: 59%;
+      height: 24px;
+      border: 3px solid rgba(225, 248, 255, 0.65);
+      border-radius: 50%;
+      background: rgba(47, 152, 186, 0.82);
+      transform: rotate(-11deg);
+      opacity: 0;
+      transition: 0.25s ease;
+    }
+
+    .solar-zone {
+      position: absolute;
+      z-index: 4;
+      left: 18%;
+      top: 22%;
+      width: 30%;
+      height: 22%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 8px;
+      border: 2px solid rgba(255, 227, 127, 0.72);
+      border-radius: 10px;
+      background: rgba(239, 189, 55, 0.14);
+      transform: rotate(-5deg);
+      opacity: 0;
+      transition: 0.25s ease;
+    }
+
+    .solar-cell {
+      border-radius: 3px;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.23) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.23) 1px, transparent 1px),
+        linear-gradient(145deg, #1b4e6b, #4d8eab);
+      background-size: 10px 8px, 10px 8px, auto;
+    }
+
+    .flood-overlay {
+      position: absolute;
+      z-index: 3;
+      inset: 0;
+      background:
+        radial-gradient(circle at 72% 74%, rgba(34, 132, 174, 0.7), transparent 23%),
+        radial-gradient(circle at 56% 76%, rgba(57, 155, 191, 0.47), transparent 35%);
+      opacity: 0;
+      transition: 0.25s ease;
+      mix-blend-mode: screen;
+    }
+
+    .map-label {
+      position: absolute;
+      z-index: 7;
+      min-width: 135px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 13px;
+      color: white;
+      background: rgba(21, 60, 37, 0.74);
+      box-shadow: 0 10px 25px rgba(12, 40, 23, 0.22);
+      backdrop-filter: blur(12px);
+      font-size: 0.74rem;
+    }
+
+    .map-label strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 0.87rem;
+    }
+
+    .label-crop {
+      left: 44%;
+      top: 42%;
+    }
+
+    .label-water {
+      right: 8%;
+      bottom: 13%;
+    }
+
+    .label-solar {
+      left: 8%;
+      top: 12%;
+    }
+
+    .simulation-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 13px;
+    }
+
+    .simulation-metric {
+      min-height: 105px;
+      padding: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .simulation-metric span {
+      display: block;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.7rem;
+    }
+
+    .simulation-metric strong {
+      display: block;
+      margin: 4px 0;
+      font-size: 1.24rem;
+    }
+
+    .simulation-metric small {
+      color: rgba(255, 255, 255, 0.63);
+      font-size: 0.67rem;
+    }
+
+    /* Scenario comparison */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .scenario-card {
+      position: relative;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--paper);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .scenario-card.recommended {
+      border-color: #bad475;
+      box-shadow: 0 18px 44px rgba(104, 146, 22, 0.16);
+    }
+
+    .scenario-card.recommended::before {
+      content: "AI แนะนำ";
+      position: absolute;
+      right: 17px;
+      top: 17px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: #48620f;
+      background: #e9f4cb;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .scenario-number {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 17px;
+      border-radius: 14px;
+      color: var(--forest-900);
+      background: var(--leaf-100);
+      font-weight: 700;
+    }
+
+    .scenario-card h3 {
+      margin-bottom: 8px;
+      color: var(--forest-900);
+    }
+
+    .scenario-card > p {
+      min-height: 51px;
+      color: var(--muted);
+      font-size: 0.89rem;
+    }
+
+    .scenario-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .scenario-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #edf1eb;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .scenario-row strong {
+      color: var(--forest-900);
+    }
+
+    /* AI recommendation */
+    .decision-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.88fr;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .decision-card {
+      padding: 27px;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      background: var(--paper);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .decision-card h3 {
+      margin: 11px 0 8px;
+      color: var(--forest-900);
+      font-size: 1.55rem;
+    }
+
+    .decision-card > p {
+      color: var(--muted);
+    }
+
+    .recommendation-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .recommendation-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      border-radius: 16px;
+      background: #f8fbf4;
+      border: 1px solid #e8eee3;
+    }
+
+    .recommendation-item i {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: var(--leaf-100);
+      font-style: normal;
+    }
+
+    .recommendation-item strong {
+      display: block;
+      color: var(--forest-900);
+      font-size: 0.88rem;
+    }
+
+    .recommendation-item span {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    .risk-card {
+      position: relative;
+      min-height: 100%;
+      color: white;
+      background:
+        radial-gradient(circle at 80% 18%, rgba(255, 255, 255, 0.12), transparent 24%),
+        linear-gradient(145deg, #1d5731, #12361f);
+      overflow: hidden;
+    }
+
+    .risk-card h3,
+    .risk-card p {
+      color: white;
+    }
+
+    .risk-card p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .risk-gauge {
+      width: 220px;
+      height: 110px;
+      margin: 28px auto 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .risk-gauge::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 270deg,
+        var(--risk-low) 0deg 55deg,
+        var(--risk-medium) 55deg 120deg,
+        var(--risk-high) 120deg 180deg,
+        rgba(255, 255, 255, 0.1) 180deg 360deg
+      );
+    }
+
+    .risk-gauge::after {
+      content: "";
+      position: absolute;
+      left: 30px;
+      top: 30px;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: #173f25;
+    }
+
+    .gauge-needle {
+      position: absolute;
+      z-index: 3;
+      left: 107px;
+      bottom: 0;
+      width: 7px;
+      height: 80px;
+      border-radius: 999px;
+      background: white;
+      transform-origin: 50% 100%;
+      transform: rotate(-8deg);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .gauge-center {
+      position: absolute;
+      z-index: 4;
+      left: 99px;
+      bottom: -2px;
+      width: 23px;
+      height: 23px;
+      border: 5px solid white;
+      border-radius: 50%;
+      background: var(--forest-900);
+    }
+
+    .risk-score {
+      text-align: center;
+    }
+
+    .risk-score strong {
+      display: block;
+      font-size: 2.2rem;
+    }
+
+    .risk-score span {
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 0.78rem;
+    }
+
+    /* Existing mobile design image */
+    .app-preview {
+      background: #edf5e7;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 45px;
+      align-items: center;
+    }
+
+    .preview-copy h2 {
+      margin: 9px 0 13px;
+      color: var(--forest-900);
+      font-size: clamp(2rem, 3.5vw, 3.5rem);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    .preview-copy p {
+      color: var(--muted);
+    }
+
+    .preview-list {
+      display: grid;
+      gap: 11px;
+      margin-top: 22px;
+    }
+
+    .preview-list span {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #506056;
+      font-size: 0.9rem;
+    }
+
+    .preview-image {
+      padding: 15px;
+      border-radius: 32px;
+      background: rgba(255, 255, 255, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
+    }
+
+    .preview-image img {
+      border-radius: 24px;
+    }
 
     /* CTA */
-    .cta{
-      margin:76px auto 0;padding:48px;border-radius:30px;
-      background:linear-gradient(135deg,#7da900,#4f7713);color:#fff;
-      display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:25px;
-      box-shadow:0 24px 55px rgba(79,119,19,.25);
-    }
-    .cta h2{color:#fff;margin:0 0 10px}
-    .cta p{color:rgba(255,255,255,.78)}
-    .cta-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap}
-    .cta .btn-primary{background:#fff;color:#35530c;box-shadow:none}
-    .cta .btn-light{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
-
-    /* FOOTER */
-    footer{margin-top:86px;background:#edf3e7;border-top:1px solid #dfe8d8}
-    .footer-grid{
-      width:var(--page);margin:auto;padding:45px 0 28px;
-      display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:40px;
-    }
-    .footer-grid h4{color:var(--forest);margin-bottom:12px}
-    .footer-grid a,.footer-grid p{display:block;color:var(--muted);font-size:.86rem;margin-bottom:8px}
-    .copyright{
-      width:var(--page);margin:auto;padding:18px 0 24px;border-top:1px solid #dae4d4;
-      color:#778176;font-size:.78rem;display:flex;justify-content:space-between;gap:15px;
+    .cta {
+      margin-top: 74px;
+      padding: 48px;
+      border-radius: 31px;
+      color: white;
+      background:
+        radial-gradient(circle at 90% 15%, rgba(255, 255, 255, 0.15), transparent 25%),
+        linear-gradient(135deg, #759f15, #4e7412);
+      box-shadow: 0 25px 58px rgba(78, 116, 18, 0.25);
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 24px;
     }
 
-    /* MODAL */
-    .modal{
-      position:fixed;inset:0;z-index:2000;display:none;place-items:center;padding:20px;
-      background:rgba(8,27,14,.6);backdrop-filter:blur(8px)
+    .cta h2 {
+      margin-bottom: 10px;
+      color: white;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      line-height: 1.18;
     }
-    .modal.open{display:grid}
-    .modal-card{width:min(520px,100%);background:#fff;border-radius:25px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.3)}
-    .modal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-    .modal-top h3{color:var(--forest);font-size:1.45rem}
-    .close{width:38px;height:38px;border:0;border-radius:11px;background:#edf3e7;cursor:pointer}
-    .form{display:grid;gap:13px}
-    .form label{font-size:.84rem;font-weight:600;color:#455249}
-    .form input,.form select{
-      width:100%;margin-top:6px;padding:12px 13px;border:1px solid var(--line);
-      border-radius:12px;background:#fbfcf8;outline:none
-    }
-    .form input:focus,.form select:focus{border-color:#8bb61e;box-shadow:0 0 0 4px rgba(139,182,30,.12)}
 
-    /* RESPONSIVE */
-    @media(max-width:1050px){
-      .hero-grid,.experience-grid{grid-template-columns:1fr}
-      .hero-copy{text-align:center}
-      .hero-copy p{margin-left:auto;margin-right:auto}
-      .hero-actions,.hero-proof{justify-content:center}
-      .mockup-wrap{max-width:800px;margin:auto}
-      .feature-grid{grid-template-columns:repeat(2,1fr)}
-      .stats,.dash-grid{grid-template-columns:repeat(2,1fr)}
-      .insight{grid-template-columns:1fr}
-      .footer-grid{grid-template-columns:repeat(2,1fr)}
+    .cta p {
+      color: rgba(255, 255, 255, 0.78);
     }
-    @media(max-width:820px){
-      .nav-links,.nav-cta{display:none}
-      .menu-btn{display:grid;place-items:center}
-      .nav-links.open{
-        position:absolute;display:grid;top:70px;left:20px;right:20px;padding:12px;
-        background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)
+
+    .cta-actions {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cta .btn-primary {
+      color: #35500e;
+      background: white;
+      box-shadow: none;
+    }
+
+    .cta .btn-outline {
+      color: white;
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 88px;
+      border-top: 1px solid #dce6d7;
+      background: #edf3e8;
+    }
+
+    .footer-grid {
+      width: var(--page);
+      margin-inline: auto;
+      padding: 46px 0 28px;
+      display: grid;
+      grid-template-columns: 1.35fr repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    .footer-grid h4 {
+      margin-bottom: 12px;
+      color: var(--forest-900);
+    }
+
+    .footer-grid a,
+    .footer-grid p {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-grid a:hover {
+      color: var(--forest-700);
+    }
+
+    .footer-copy {
+      max-width: 340px;
+      margin-top: 14px;
+    }
+
+    .copyright {
+      width: var(--page);
+      margin-inline: auto;
+      padding: 18px 0 24px;
+      border-top: 1px solid #d8e2d3;
+      color: #758176;
+      font-size: 0.77rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      place-items: center;
+      padding: 20px;
+      background: rgba(8, 29, 15, 0.62);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-card {
+      width: min(540px, 100%);
+      padding: 29px;
+      border-radius: 26px;
+      background: white;
+      box-shadow: 0 35px 90px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .modal-top h3 {
+      color: var(--forest-900);
+      font-size: 1.5rem;
+    }
+
+    .modal-close {
+      width: 39px;
+      height: 39px;
+      border: 0;
+      border-radius: 11px;
+      background: #edf3e8;
+      color: var(--forest-900);
+      cursor: pointer;
+    }
+
+    .form {
+      display: grid;
+      gap: 13px;
+    }
+
+    .form label {
+      color: #445148;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .form input,
+    .form select {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fbfcf8;
+      outline: none;
+    }
+
+    .form input:focus,
+    .form select:focus {
+      border-color: #8ab51f;
+      box-shadow: 0 0 0 4px rgba(138, 181, 31, 0.12);
+    }
+
+    /* Responsive */
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .simulator-grid,
+      .preview-grid {
+        grid-template-columns: 1fr;
       }
-      .nav-links.open a{padding:12px 14px;border-radius:10px}
-      .nav-links.open a::after{display:none}
-      .nav-links.open a:hover{background:#eef3e9}
-      .experience-shot{max-width:620px;margin:auto}
-      .phone-card img{height:480px}
-      .steps{grid-template-columns:1fr}
-      .cta{grid-template-columns:1fr;text-align:center}
-      .cta-actions{justify-content:center}
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .hero-copy > p {
+        margin-inline: auto;
+      }
+
+      .hero-actions,
+      .hero-proof {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        width: min(820px, 100%);
+        margin-inline: auto;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .value-strip,
+      .simulation-metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .decision-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
-    @media(max-width:620px){
-      :root{--page:calc(100% - 24px)}
-      .hero{padding-top:54px}
-      h1{font-size:clamp(2.45rem,14vw,4rem)}
-      .float-card{display:none}
-      .stats{grid-template-columns:1fr 1fr;margin-top:18px}
-      .feature-grid{grid-template-columns:1fr}
-      .experience-shot{grid-template-columns:1fr}
-      .phone-card:last-child{transform:none}
-      .phone-card img{height:auto}
-      .dash-grid{grid-template-columns:1fr 1fr}
-      .cta{padding:32px 22px}
-      .footer-grid{grid-template-columns:1fr}
-      .copyright{flex-direction:column}
+
+    @media (max-width: 860px) {
+      .nav-links,
+      .nav-cta {
+        display: none;
+      }
+
+      .menu-button {
+        display: grid;
+        place-items: center;
+      }
+
+      .nav-links.open {
+        position: absolute;
+        display: grid;
+        top: 69px;
+        left: 20px;
+        right: 20px;
+        gap: 0;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: white;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open a {
+        padding: 12px 14px;
+        border-radius: 10px;
+      }
+
+      .nav-links.open a::after {
+        display: none;
+      }
+
+      .nav-links.open a:hover {
+        background: #f0f5eb;
+      }
+
+      .stage-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .cta {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .cta-actions {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --page: calc(100% - 24px);
+      }
+
+      .section {
+        padding: 66px 0;
+      }
+
+      .brand-copy span {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.45rem, 14vw, 4rem);
+      }
+
+      .hero-visual {
+        min-height: 430px;
+      }
+
+      .mockup-frame {
+        inset: 0;
+      }
+
+      .hero-simulation-card,
+      .hero-risk-card {
+        display: none;
+      }
+
+      .value-strip {
+        grid-template-columns: 1fr 1fr;
+        margin-top: 18px;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .control-panel,
+      .simulation-stage {
+        padding: 16px;
+        border-radius: 22px;
+      }
+
+      .simulation-stage {
+        min-height: 620px;
+      }
+
+      .farm-map {
+        min-height: 390px;
+      }
+
+      .field-boundary {
+        inset: 40px 32px 38px;
+      }
+
+      .map-label {
+        min-width: 118px;
+        font-size: 0.67rem;
+      }
+
+      .simulation-metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cta {
+        padding: 34px 23px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .copyright {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
 
 <body>
-  <header class="nav">
+  <header class="navbar">
     <div class="nav-inner">
-      <a class="brand" href="#home">
+      <a class="brand" href="#home" aria-label="SunKaset AI Home">
         <div class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 42 42">
-            <circle cx="21" cy="9" r="5" fill="#f4c63d"/>
-            <path d="M21 38C9 34 8 22 8 19c7 0 11 3 13 8 2-5 6-8 13-8 0 3-1 15-13 19Z" fill="#79a900"/>
-            <path d="M21 37V22" stroke="#245631" stroke-width="2.6" stroke-linecap="round"/>
+          <svg viewBox="0 0 44 44">
+            <circle cx="22" cy="9" r="5.5" fill="#efbd37" />
+            <g stroke="#efbd37" stroke-width="2" stroke-linecap="round">
+              <path d="M22 1v3" /><path d="M12 5l2.5 2.3" /><path d="M32 5l-2.5 2.3" />
+            </g>
+            <path
+              d="M22 41C9 36 8 23 8 19c8 0 12.5 3.7 14 9 1.5-5.3 6-9 14-9 0 4-1 17-14 22Z"
+              fill="#8ab51f"
+            />
+            <path d="M22 40V22" stroke="#205431" stroke-width="2.8" stroke-linecap="round" />
           </svg>
         </div>
         <div class="brand-copy">
           <strong>SunKaset AI</strong>
-          <span>Smart Farm Intelligence</span>
+          <span>Farm Simulation & Decision Support</span>
         </div>
       </a>
 
-      <nav class="nav-links" id="navLinks">
+      <nav class="nav-links" id="mainNav" aria-label="เมนูหลัก">
         <a class="active" href="#home">หน้าหลัก</a>
-        <a href="#features">ฟีเจอร์</a>
-        <a href="#experience">แอปพลิเคชัน</a>
-        <a href="#dashboard">แดชบอร์ด</a>
+        <a href="#features">ความสามารถ</a>
+        <a href="#simulator">แปลงจำลอง</a>
+        <a href="#scenarios">เปรียบเทียบแผน</a>
+        <a href="#insights">AI Insight</a>
         <a href="#contact">ติดต่อ</a>
       </nav>
 
-      <button class="btn btn-primary nav-cta" data-modal>ทดลองใช้งาน ↗</button>
-      <button class="menu-btn" id="menuBtn" aria-label="เปิดเมนู">☰</button>
+      <button class="btn btn-primary nav-cta" data-open-modal>
+        ทดลองสร้างแปลง ↗
+      </button>
+
+      <button class="menu-button" id="menuButton" aria-label="เปิดเมนู" aria-expanded="false">
+        ☰
+      </button>
     </div>
   </header>
 
@@ -376,168 +1605,407 @@
     <section class="hero" id="home">
       <div class="shell hero-grid">
         <div class="hero-copy">
-          <div class="pill"><i></i> AI for Sustainable Agriculture</div>
-          <h1>จัดการฟาร์มอย่างชาญฉลาดในทุกฤดูกาล</h1>
+          <div class="hero-badge"><span></span> AI-powered Farm Digital Twin</div>
+          <h1>มองเห็นอนาคตของฟาร์ม ก่อนลงมือปลูกจริง</h1>
           <p>
-            SunKaset AI รวมข้อมูลพื้นที่ ผลผลิต อายุพืช น้ำ ดิน และความเสี่ยงจากศัตรูพืช
-            ให้เกษตรกรเห็นภาพรวมและตัดสินใจได้แม่นยำจากหน้าจอเดียว
+            SunKaset AI ช่วยสร้างแปลงจำลอง ทดลองรูปแบบการปลูก วางตำแหน่งโซลาร์
+            บริหารน้ำ และประเมินความเสี่ยงอุทกภัย เพื่อให้เกษตรกรเข้าใจฟาร์มได้ง่ายขึ้น
+            และตัดสินใจได้แม่นยำขึ้น
           </p>
+
           <div class="hero-actions">
-            <button class="btn btn-primary" data-modal>เริ่มต้นใช้งาน ↗</button>
-            <a class="btn btn-light" href="#experience">ดูตัวอย่างแอป ▶</a>
+            <a class="btn btn-primary" href="#simulator">เริ่มสร้างแปลงจำลอง ↗</a>
+            <a class="btn btn-outline" href="#scenarios">ดูตัวอย่างการวิเคราะห์ ▶</a>
           </div>
+
           <div class="hero-proof">
-            <span><b class="check">✓</b> วิเคราะห์พื้นที่ด้วย AI</span>
-            <span><b class="check">✓</b> ติดตามสุขภาพพืช</span>
-            <span><b class="check">✓</b> รองรับมือถือและเว็บ</span>
+            <span><b class="proof-check">✓</b> ทดลองก่อนลงทุนจริง</span>
+            <span><b class="proof-check">✓</b> เปรียบเทียบหลายสถานการณ์</span>
+            <span><b class="proof-check">✓</b> AI สรุปผลแบบเข้าใจง่าย</span>
           </div>
         </div>
 
-        <div class="mockup-wrap">
-          <img src="Farm3.png" alt="ตัวอย่างแอป SunKaset AI บนมือถือ">
-          <div class="float-card one"><small>Plant Health</small><strong>78%</strong></div>
-          <div class="float-card two"><small>Estimated Yield</small><strong>3.24 Ton</strong></div>
+        <div class="hero-visual">
+          <div class="mockup-frame">
+            <img
+              src="assets/sunkaset-app-mockup.png"
+              alt="ตัวอย่างแอป SunKaset AI สำหรับการจัดการและวิเคราะห์ฟาร์ม"
+            />
+          </div>
+
+          <div class="hero-simulation-card">
+            <small>Best Simulation Scenario</small>
+            <strong>แผน B: Solar + Smart Water</strong>
+            <small>ลดการใช้น้ำ 22% · ผลผลิตคาดการณ์ +14%</small>
+          </div>
+
+          <div class="hero-risk-card">
+            <div class="risk-row">
+              <span>Flood Risk</span>
+              <span class="risk-badge">ปานกลาง</span>
+            </div>
+            <strong style="display:block;margin-top:8px;font-size:1.6rem;">42%</strong>
+            <small style="color:rgba(255,255,255,.7);">หลังเพิ่มทางระบายน้ำ</small>
+          </div>
         </div>
       </div>
     </section>
 
-    <div class="shell stats">
-      <div class="stat"><small>พื้นที่ฟาร์ม</small><strong data-count="25.6" data-suffix=" ไร่">0 ไร่</strong></div>
-      <div class="stat"><small>ผลผลิตคาดการณ์</small><strong data-count="3.24" data-suffix=" ตัน">0 ตัน</strong></div>
-      <div class="stat"><small>สุขภาพพืช</small><strong data-count="78" data-suffix="%">0%</strong></div>
-      <div class="stat"><small>ความชื้นดิน</small><strong data-count="68" data-suffix="%">0%</strong></div>
+    <div class="shell value-strip">
+      <article class="value-card">
+        <span>Simulation Score</span>
+        <strong>88/100</strong>
+      </article>
+      <article class="value-card">
+        <span>Solar Suitability</span>
+        <strong>92%</strong>
+      </article>
+      <article class="value-card">
+        <span>Water Efficiency</span>
+        <strong>+22%</strong>
+      </article>
+      <article class="value-card">
+        <span>Flood Risk</span>
+        <strong>Medium</strong>
+      </article>
     </div>
 
     <section class="section" id="features">
       <div class="shell">
         <div class="section-head">
-          <div class="eyebrow">Core Features</div>
-          <h2>ทุกข้อมูลสำคัญของฟาร์ม อยู่ในระบบเดียว</h2>
-          <p>ออกแบบให้ใช้ง่ายบนมือถือ พร้อมข้อมูลที่ช่วยสนับสนุนการตัดสินใจในแต่ละวัน</p>
+          <div class="eyebrow">Core Capabilities</div>
+          <h2>จำลอง วิเคราะห์ และวางแผนฟาร์มในระบบเดียว</h2>
+          <p>
+            ทุกฟีเจอร์ออกแบบมาเพื่อช่วยลดการลองผิดลองถูก และทำให้ข้อมูลซับซ้อน
+            กลายเป็นคำแนะนำที่เกษตรกรนำไปใช้ได้จริง
+          </p>
         </div>
 
         <div class="feature-grid">
           <article class="feature-card">
-            <div class="icon">🗺️</div>
-            <h3>Field Mapping</h3>
-            <p>แบ่งแปลง ปักหมุดชนิดพืช และดูภาพรวมพื้นที่เพาะปลูกบนแผนที่</p>
+            <div class="feature-icon">🧩</div>
+            <h3>AI Farm Simulation</h3>
+            <p>สร้างแปลงจำลอง ทดลองชนิดพืช ขนาดแปลง ฤดูกาล และรูปแบบการจัดสรรพื้นที่ก่อนปลูกจริง</p>
           </article>
+
           <article class="feature-card">
-            <div class="icon">🌱</div>
-            <h3>Plant Health</h3>
-            <p>ติดตามสุขภาพพืชและแจ้งเตือนความผิดปกติของแต่ละแปลง</p>
+            <div class="feature-icon">☀️</div>
+            <h3>Solar Planning</h3>
+            <p>วิเคราะห์พื้นที่รับแสง ตำแหน่งติดตั้ง และขนาดระบบโซลาร์ที่เหมาะกับการใช้งานในฟาร์ม</p>
           </article>
+
           <article class="feature-card">
-            <div class="icon">💧</div>
-            <h3>Water & Soil</h3>
-            <p>ดูระดับน้ำ ความชื้น และสภาพดินเพื่อวางแผนการให้น้ำที่เหมาะสม</p>
+            <div class="feature-icon">💧</div>
+            <h3>Water Management</h3>
+            <p>จำลองการให้น้ำ แหล่งกักเก็บ ทางระบายน้ำ และประสิทธิภาพการใช้น้ำในแต่ละสถานการณ์</p>
           </article>
+
           <article class="feature-card">
-            <div class="icon">🤖</div>
-            <h3>AI Recommendation</h3>
-            <p>AI แนะนำการดูแลพืชตามข้อมูลจริงของฟาร์มและช่วงอายุพืช</p>
+            <div class="feature-icon">🌊</div>
+            <h3>Flood Risk Assessment</h3>
+            <p>ประเมินจุดเสี่ยงน้ำท่วม น้ำขัง และผลกระทบต่อแปลง เพื่อเตรียมมาตรการรับมือล่วงหน้า</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section experience" id="experience">
-      <div class="shell experience-grid">
-        <div>
-          <div class="eyebrow">Mobile-first Experience</div>
-          <h2>ประสบการณ์ใช้งานแบบแอปมือถือที่ชัดเจนและเป็นธรรมชาติ</h2>
+    <section class="section simulator-section" id="simulator">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">Interactive Farm Simulator</div>
+          <h2>ลองปรับแผน แล้วดูผลลัพธ์ทันที</h2>
           <p>
-            อินเทอร์เฟซเน้นภาพจริงของฟาร์ม การ์ดโปร่งใส และข้อมูลที่อ่านได้เร็ว
-            เหมาะสำหรับใช้งานภาคสนามทั้งบนมือถือ แท็บเล็ต และเว็บ
+            ตัวอย่างต้นแบบนี้คำนวณค่าประมาณจากตัวแปรที่คุณเลือก เพื่อแสดงแนวคิดของระบบ
+            Digital Twin ก่อนเชื่อมต่อโมเดล AI และข้อมูลจริงในอนาคต
+          </p>
+        </div>
+
+        <div class="simulator-grid">
+          <aside class="control-panel">
+            <h3>ตั้งค่าการจำลอง</h3>
+
+            <div class="control-list">
+              <div class="control-group">
+                <label>
+                  <span>ขนาดพื้นที่</span>
+                  <span class="control-value" id="areaValue">25 ไร่</span>
+                </label>
+                <input id="areaRange" type="range" min="5" max="100" value="25" />
+              </div>
+
+              <div class="control-group">
+                <label for="cropSelect">
+                  <span>ชนิดพืชหลัก</span>
+                </label>
+                <select id="cropSelect">
+                  <option value="rice">ข้าว</option>
+                  <option value="corn">ข้าวโพด</option>
+                  <option value="vegetable">ผัก</option>
+                  <option value="fruit">ไม้ผล</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <label>
+                  <span>ปริมาณฝนจำลอง</span>
+                  <span class="control-value" id="rainValue">ปกติ</span>
+                </label>
+                <input id="rainRange" type="range" min="0" max="2" value="1" step="1" />
+              </div>
+
+              <div class="switch-row">
+                <div class="switch-copy">
+                  <strong>ติดตั้ง Solar</strong>
+                  <span>เพิ่มพลังงานสะอาดสำหรับปั๊มน้ำและอุปกรณ์</span>
+                </div>
+                <label class="switch">
+                  <input id="solarToggle" type="checkbox" checked />
+                  <span class="switch-track"></span>
+                </label>
+              </div>
+
+              <div class="switch-row">
+                <div class="switch-copy">
+                  <strong>ระบบบริหารน้ำอัจฉริยะ</strong>
+                  <span>เพิ่มถังกักเก็บ เซนเซอร์ และการควบคุมการให้น้ำ</span>
+                </div>
+                <label class="switch">
+                  <input id="waterToggle" type="checkbox" checked />
+                  <span class="switch-track"></span>
+                </label>
+              </div>
+
+              <div class="switch-row">
+                <div class="switch-copy">
+                  <strong>ทางระบายน้ำเสริม</strong>
+                  <span>ช่วยลดความเสี่ยงน้ำขังและอุทกภัยในพื้นที่ต่ำ</span>
+                </div>
+                <label class="switch">
+                  <input id="drainToggle" type="checkbox" />
+                  <span class="switch-track"></span>
+                </label>
+              </div>
+            </div>
+          </aside>
+
+          <div class="simulation-stage">
+            <div class="stage-top">
+              <div class="stage-title">
+                <strong>แปลงจำลอง A1</strong>
+                <span>ปรับตัวแปรด้านการปลูก พลังงาน น้ำ และอุทกภัย</span>
+              </div>
+
+              <div class="layer-buttons">
+                <button class="layer-button active" data-layer="all">ภาพรวม</button>
+                <button class="layer-button" data-layer="solar">Solar</button>
+                <button class="layer-button" data-layer="water">Water</button>
+                <button class="layer-button" data-layer="flood">Flood Risk</button>
+              </div>
+            </div>
+
+            <div class="farm-map" id="farmMap">
+              <div class="field-boundary"></div>
+              <div class="solar-zone" id="solarZone">
+                <span class="solar-cell"></span><span class="solar-cell"></span><span class="solar-cell"></span>
+                <span class="solar-cell"></span><span class="solar-cell"></span><span class="solar-cell"></span>
+              </div>
+              <div class="water-channel" id="waterChannel"></div>
+              <div class="flood-overlay" id="floodOverlay"></div>
+
+              <div class="map-label label-solar">
+                <strong>Solar Zone</strong>
+                พื้นที่รับแสงสูง
+              </div>
+
+              <div class="map-label label-crop">
+                <strong id="cropMapLabel">Rice Plot</strong>
+                แปลงเพาะปลูกหลัก
+              </div>
+
+              <div class="map-label label-water">
+                <strong>Drainage Point</strong>
+                จุดระบายน้ำปลายแปลง
+              </div>
+            </div>
+
+            <div class="simulation-metrics">
+              <article class="simulation-metric">
+                <span>Estimated Yield</span>
+                <strong id="yieldMetric">3.7 ตัน</strong>
+                <small>ค่าประมาณต่อฤดูกาล</small>
+              </article>
+
+              <article class="simulation-metric">
+                <span>Water Use</span>
+                <strong id="waterMetric">-22%</strong>
+                <small>เทียบกับแผนพื้นฐาน</small>
+              </article>
+
+              <article class="simulation-metric">
+                <span>Solar Generation</span>
+                <strong id="solarMetric">410 kWh</strong>
+                <small>ค่าประมาณต่อเดือน</small>
+              </article>
+
+              <article class="simulation-metric">
+                <span>Flood Risk</span>
+                <strong id="floodMetric">42%</strong>
+                <small id="floodLabel">ระดับปานกลาง</small>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="scenarios">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">Scenario Comparison</div>
+          <h2>เปรียบเทียบหลายแผนก่อนเลือกลงทุนจริง</h2>
+          <p>
+            ระบบช่วยสรุปผลกระทบด้านผลผลิต น้ำ พลังงาน และความเสี่ยง
+            เพื่อให้เห็นความแตกต่างของแต่ละทางเลือกอย่างชัดเจน
+          </p>
+        </div>
+
+        <div class="comparison-grid">
+          <article class="scenario-card">
+            <div class="scenario-number">A</div>
+            <h3>แผนพื้นฐาน</h3>
+            <p>ปลูกตามรูปแบบเดิม โดยไม่มีโซลาร์และระบบบริหารน้ำอัจฉริยะ</p>
+            <div class="scenario-list">
+              <div class="scenario-row"><span>ผลผลิตคาดการณ์</span><strong>3.2 ตัน</strong></div>
+              <div class="scenario-row"><span>ประสิทธิภาพน้ำ</span><strong>มาตรฐาน</strong></div>
+              <div class="scenario-row"><span>พลังงาน Solar</span><strong>0 kWh</strong></div>
+              <div class="scenario-row"><span>ความเสี่ยงน้ำท่วม</span><strong>68%</strong></div>
+            </div>
+          </article>
+
+          <article class="scenario-card recommended">
+            <div class="scenario-number">B</div>
+            <h3>Solar + Smart Water</h3>
+            <p>เพิ่มโซลาร์ ระบบควบคุมน้ำ และปรับการระบายน้ำตามคำแนะนำของ AI</p>
+            <div class="scenario-list">
+              <div class="scenario-row"><span>ผลผลิตคาดการณ์</span><strong>3.7 ตัน</strong></div>
+              <div class="scenario-row"><span>ลดการใช้น้ำ</span><strong>22%</strong></div>
+              <div class="scenario-row"><span>พลังงาน Solar</span><strong>410 kWh</strong></div>
+              <div class="scenario-row"><span>ความเสี่ยงน้ำท่วม</span><strong>42%</strong></div>
+            </div>
+          </article>
+
+          <article class="scenario-card">
+            <div class="scenario-number">C</div>
+            <h3>Maximum Protection</h3>
+            <p>เน้นลดความเสียหายจากน้ำท่วมด้วยระบบระบายน้ำและพื้นที่กักเก็บขนาดใหญ่</p>
+            <div class="scenario-list">
+              <div class="scenario-row"><span>ผลผลิตคาดการณ์</span><strong>3.5 ตัน</strong></div>
+              <div class="scenario-row"><span>ลดการใช้น้ำ</span><strong>17%</strong></div>
+              <div class="scenario-row"><span>พลังงาน Solar</span><strong>320 kWh</strong></div>
+              <div class="scenario-row"><span>ความเสี่ยงน้ำท่วม</span><strong>24%</strong></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="insights" style="padding-top: 18px;">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">AI Decision Support</div>
+          <h2>คำแนะนำที่เกษตรกรอ่านแล้วนำไปตัดสินใจได้ทันที</h2>
+        </div>
+
+        <div class="decision-grid">
+          <article class="decision-card">
+            <span class="eyebrow">AI Insight Today</span>
+            <h3>แผน B เหมาะสมที่สุดสำหรับแปลงนี้</h3>
+            <p>
+              เมื่อพิจารณาความลาดชัน การใช้น้ำ ศักยภาพพลังงาน และความเสี่ยงน้ำท่วม
+              ระบบประเมินว่าแผน B ให้สมดุลด้านต้นทุนและความเสี่ยงดีที่สุด
+            </p>
+
+            <div class="recommendation-list">
+              <div class="recommendation-item">
+                <i>☀️</i>
+                <div>
+                  <strong>ติดตั้ง Solar บริเวณทิศตะวันตกเฉียงเหนือ</strong>
+                  <span>พื้นที่นี้มีเงาบังต่ำและเหมาะกับการจ่ายพลังงานให้ระบบสูบน้ำ</span>
+                </div>
+              </div>
+
+              <div class="recommendation-item">
+                <i>💧</i>
+                <div>
+                  <strong>แบ่งการให้น้ำเป็น 3 โซน</strong>
+                  <span>ช่วยลดการใช้น้ำประมาณ 22% โดยไม่ลดผลผลิตคาดการณ์</span>
+                </div>
+              </div>
+
+              <div class="recommendation-item">
+                <i>🌊</i>
+                <div>
+                  <strong>เพิ่มทางระบายน้ำบริเวณปลายแปลง</strong>
+                  <span>สามารถลดความเสี่ยงน้ำขังในสถานการณ์ฝนสูงได้อย่างมีนัยสำคัญ</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="decision-card risk-card">
+            <span class="eyebrow" style="color:#d8eca2;">Flood Risk Forecast</span>
+            <h3>ความเสี่ยงอุทกภัยหลังปรับแผน</h3>
+            <p>ค่าประเมินตัวอย่างจากระดับฝน การระบายน้ำ และพื้นที่กักเก็บในแปลงจำลอง</p>
+
+            <div class="risk-gauge" aria-label="มาตรวัดความเสี่ยงน้ำท่วม">
+              <div class="gauge-needle"></div>
+              <div class="gauge-center"></div>
+            </div>
+
+            <div class="risk-score">
+              <strong>42%</strong>
+              <span>ระดับปานกลาง — ควรเพิ่มทางระบายน้ำเสริม</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section app-preview">
+      <div class="shell preview-grid">
+        <div class="preview-copy">
+          <div class="eyebrow">Web & Mobile Experience</div>
+          <h2>ใช้งานได้ทั้งในเว็บและแอปมือถือ</h2>
+          <p>
+            รักษารูปแบบอินเทอร์เฟซที่เน้นภาพพื้นที่จริง การ์ดข้อมูลแบบ Glassmorphism
+            และเมนูที่ใช้งานง่าย เพื่อให้เกษตรกรเข้าถึงข้อมูลได้แม้อยู่ในแปลง
           </p>
 
-          <div class="experience-list">
-            <div class="experience-item">
-              <b class="check">1</b>
-              <div><b>หน้าหลักเฉพาะบุคคล</b><span>สรุปพื้นที่ ผลผลิต และอายุพืชทันทีที่เข้าสู่ระบบ</span></div>
-            </div>
-            <div class="experience-item">
-              <b class="check">2</b>
-              <div><b>แผนที่แปลงแบบ Interactive</b><span>เลือกแปลงและดูสถานะพืชแต่ละชนิดได้อย่างรวดเร็ว</span></div>
-            </div>
-            <div class="experience-item">
-              <b class="check">3</b>
-              <div><b>Glass Dashboard</b><span>การ์ดข้อมูลโปร่งใสบนภาพพื้นที่จริง ดูสวยและอ่านง่าย</span></div>
-            </div>
+          <div class="preview-list">
+            <span><b class="proof-check">✓</b> รองรับมือถือ แท็บเล็ต และคอมพิวเตอร์</span>
+            <span><b class="proof-check">✓</b> แสดงแผนที่และสถานการณ์จำลองอย่างชัดเจน</span>
+            <span><b class="proof-check">✓</b> สรุปคำแนะนำของ AI ด้วยภาษาที่เข้าใจง่าย</span>
           </div>
         </div>
 
-        <div class="experience-shot">
-          <div class="phone-card"><img src="Farm1.png" alt="หน้าหลักแอป SunKaset AI"></div>
-          <div class="phone-card"><img src="Farm2.png" alt="หน้าแผนที่แปลงเกษตร SunKaset AI"></div>
+        <div class="preview-image">
+          <img src="assets/mobile-preview.jpg" alt="ภาพตัวอย่างอินเทอร์เฟซมือถือ SunKaset AI" />
         </div>
       </div>
-    </section>
 
-    <section class="section">
       <div class="shell">
-        <div class="section-head">
-          <div class="eyebrow">How It Works</div>
-          <h2>เริ่มใช้งานง่ายใน 3 ขั้นตอน</h2>
-        </div>
-
-        <div class="steps">
-          <article class="step"><div class="step-no">01</div><div class="icon">📍</div><h3>เพิ่มพื้นที่ฟาร์ม</h3><p>ระบุตำแหน่ง วาดขอบเขตแปลง และเลือกชนิดพืชที่ปลูก</p></article>
-          <article class="step"><div class="step-no">02</div><div class="icon">📡</div><h3>เชื่อมต่อข้อมูล</h3><p>เชื่อมข้อมูลเซนเซอร์ ภาพถ่าย หรือกรอกข้อมูลฟาร์มด้วยตนเอง</p></article>
-          <article class="step"><div class="step-no">03</div><div class="icon">✨</div><h3>รับคำแนะนำจาก AI</h3><p>ดูสถานะล่าสุด การแจ้งเตือน และคำแนะนำที่เหมาะกับแต่ละแปลง</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="dashboard" style="padding-top:20px">
-      <div class="shell">
-        <div class="section-head">
-          <div class="eyebrow">Smart Dashboard</div>
-          <h2>มองเห็นสถานะฟาร์มแบบเรียลไทม์</h2>
-        </div>
-
-        <div class="dash-grid">
-          <div class="dash-card"><div class="label">Water Depth</div><strong>52%</strong><div class="bar"><span style="width:52%"></span></div></div>
-          <div class="dash-card"><div class="label">Plant Health</div><strong>78%</strong><div class="bar"><span style="width:78%"></span></div></div>
-          <div class="dash-card"><div class="label">Soil Condition</div><strong>68%</strong><div class="bar"><span style="width:68%"></span></div></div>
-          <div class="dash-card"><div class="label">Pest Risk</div><strong>12%</strong><div class="bar"><span style="width:12%"></span></div></div>
-        </div>
-
-        <div class="insight">
-          <div class="insight-card">
-            <h3>แนวโน้มสุขภาพพืช</h3>
-            <div class="chart">
-              <svg viewBox="0 0 600 210" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#8ab817" stop-opacity=".45"/>
-                    <stop offset="100%" stop-color="#8ab817" stop-opacity=".02"/>
-                  </linearGradient>
-                </defs>
-                <path d="M0 170 C70 145,90 120,150 132 S245 95,300 105 S400 70,455 88 S540 48,600 60 L600 210 L0 210Z" fill="url(#fill)"/>
-                <path d="M0 170 C70 145,90 120,150 132 S245 95,300 105 S400 70,455 88 S540 48,600 60" fill="none" stroke="#79a900" stroke-width="4"/>
-              </svg>
-            </div>
-          </div>
-
-          <div class="insight-card ai-box">
-            <div>
-              <span class="ai-tag">AI Insight Today</span>
-              <h3>แนะนำให้รดน้ำแปลง A1 ช่วง 17:30 น.</h3>
-              <p>ความชื้นดินมีแนวโน้มลดลงในช่วงบ่าย แต่ยังไม่พบความเสี่ยงศัตรูพืชสูง</p>
-            </div>
-            <div class="recommendation">☀️ สภาพอากาศเหมาะสมสำหรับการดูแลและตรวจแปลงในช่วงเย็น</div>
-          </div>
-        </div>
-
         <div class="cta">
           <div>
-            <h2>พร้อมเปลี่ยนฟาร์มให้เป็น Smart Farm แล้วหรือยัง?</h2>
-            <p>ทดลองดูหน้าจอ ระบบวิเคราะห์ และแนวทางการพัฒนาต่อยอดสำหรับโครงการของคุณ</p>
+            <h2>จำลองก่อนปลูกจริง วางแผนแม่นยำ และลดความเสี่ยง</h2>
+            <p>
+              เริ่มต้นสร้างแปลงทดลองของคุณ แล้วเปรียบเทียบแผนการปลูก โซลาร์
+              ระบบน้ำ และแนวทางรับมืออุทกภัยในหน้าจอเดียว
+            </p>
           </div>
+
           <div class="cta-actions">
-            <button class="btn btn-primary" data-modal>ขอ Demo</button>
-            <a class="btn btn-light" href="#features">ดูฟีเจอร์ทั้งหมด</a>
+            <button class="btn btn-primary" data-open-modal>ขอทดลองใช้งาน</button>
+            <a class="btn btn-outline" href="#simulator">กลับไปที่แปลงจำลอง</a>
           </div>
         </div>
       </div>
@@ -548,97 +2016,269 @@
     <div class="footer-grid">
       <div>
         <a class="brand" href="#home">
-          <div class="brand-mark">🌱</div>
-          <div class="brand-copy"><strong>SunKaset AI</strong><span>Smart Farm Intelligence</span></div>
+          <div class="brand-mark" aria-hidden="true">🌱</div>
+          <div class="brand-copy">
+            <strong>SunKaset AI</strong>
+            <span>Farm Simulation & Decision Support</span>
+          </div>
         </a>
-        <p style="margin-top:14px;max-width:320px">เทคโนโลยีที่ช่วยให้เกษตรกรเข้าใจฟาร์มได้ง่ายขึ้น และตัดสินใจได้แม่นยำขึ้น</p>
+        <p class="footer-copy">
+          เทคโนโลยี AI ที่ช่วยให้เกษตรกรเข้าใจฟาร์มได้ง่ายขึ้น
+          และตัดสินใจได้แม่นยำขึ้นก่อนลงทุนและปลูกจริง
+        </p>
       </div>
-      <div><h4>เมนู</h4><a href="#features">ฟีเจอร์</a><a href="#experience">แอปพลิเคชัน</a><a href="#dashboard">แดชบอร์ด</a></div>
-      <div><h4>บริการ</h4><a href="#">วิเคราะห์ฟาร์ม</a><a href="#">AI Advisor</a><a href="#">Field Mapping</a></div>
-      <div><h4>ติดต่อ</h4><a href="mailto:hello@sunkaset.com">hello@sunkaset.com</a><p>Bangkok, Thailand</p></div>
+
+      <div>
+        <h4>ผลิตภัณฑ์</h4>
+        <a href="#simulator">แปลงจำลอง</a>
+        <a href="#scenarios">เปรียบเทียบแผน</a>
+        <a href="#insights">AI Insight</a>
+      </div>
+
+      <div>
+        <h4>การวิเคราะห์</h4>
+        <a href="#features">Solar Planning</a>
+        <a href="#features">Water Management</a>
+        <a href="#features">Flood Risk</a>
+      </div>
+
+      <div>
+        <h4>ติดต่อ</h4>
+        <a href="mailto:hello@sunkaset.com">hello@sunkaset.com</a>
+        <p>Bangkok, Thailand</p>
+      </div>
     </div>
-    <div class="copyright"><span>© 2026 SunKaset AI</span><span>Designed for Web & Mobile Experience</span></div>
+
+    <div class="copyright">
+      <span>© 2026 SunKaset AI</span>
+      <span>Prototype UI — Simulation values are for demonstration only</span>
+    </div>
   </footer>
 
-  <div class="modal" id="modal">
+  <div class="modal" id="demoModal" role="dialog" aria-modal="true" aria-labelledby="demoTitle">
     <div class="modal-card">
       <div class="modal-top">
-        <h3>ขอทดลองใช้งาน SunKaset AI</h3>
-        <button class="close" id="closeModal">✕</button>
+        <div>
+          <span class="eyebrow">SunKaset AI Demo</span>
+          <h3 id="demoTitle">ขอทดลองสร้างแปลงจำลอง</h3>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="ปิดหน้าต่าง">✕</button>
       </div>
+
       <form class="form" id="demoForm">
-        <label>ชื่อ–นามสกุล<input required placeholder="กรอกชื่อของคุณ"></label>
-        <label>อีเมล<input type="email" required placeholder="name@example.com"></label>
-        <label>ประเภทผู้ใช้งาน
+        <label>
+          ชื่อ–นามสกุล
+          <input type="text" required placeholder="กรอกชื่อของคุณ" />
+        </label>
+
+        <label>
+          อีเมล
+          <input type="email" required placeholder="name@example.com" />
+        </label>
+
+        <label>
+          สิ่งที่ต้องการทดลอง
           <select required>
-            <option value="">เลือกประเภท</option>
-            <option>เกษตรกร</option>
-            <option>นักศึกษา / นักวิจัย</option>
-            <option>บริษัท / นักลงทุน</option>
-            <option>หน่วยงานภาครัฐ</option>
+            <option value="">เลือกหัวข้อ</option>
+            <option>สร้างแปลงจำลองก่อนปลูก</option>
+            <option>วางแผนติดตั้ง Solar</option>
+            <option>บริหารน้ำในฟาร์ม</option>
+            <option>ประเมินความเสี่ยงอุทกภัย</option>
           </select>
         </label>
+
         <button class="btn btn-primary" type="submit">ส่งคำขอ Demo</button>
       </form>
     </div>
   </div>
 
   <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
-    menuBtn.addEventListener("click",()=>{
-      const open=navLinks.classList.toggle("open");
-      menuBtn.textContent=open?"✕":"☰";
-    });
-    navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
-      navLinks.classList.remove("open");menuBtn.textContent="☰";
-    }));
+    const mainNav = document.getElementById("mainNav");
+    const menuButton = document.getElementById("menuButton");
 
-    const counters=document.querySelectorAll("[data-count]");
-    const counterObs=new IntersectionObserver(entries=>{
-      if(!entries[0].isIntersecting)return;
-      counters.forEach(el=>{
-        const target=Number(el.dataset.count),suffix=el.dataset.suffix||"";
-        const start=performance.now(),duration=1200;
-        function run(now){
-          const p=Math.min((now-start)/duration,1);
-          const eased=1-Math.pow(1-p,3);
-          const value=target%1===0?Math.round(target*eased):(target*eased).toFixed(2);
-          el.textContent=value+suffix;
-          if(p<1)requestAnimationFrame(run);
-        }
-        requestAnimationFrame(run);
-      });
-      counterObs.disconnect();
-    },{threshold:.35});
-    counterObs.observe(document.querySelector(".stats"));
-
-    const modal=document.getElementById("modal");
-    const closeModal=document.getElementById("closeModal");
-    document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>{
-      modal.classList.add("open");document.body.style.overflow="hidden";
-    }));
-    function close(){modal.classList.remove("open");document.body.style.overflow=""}
-    closeModal.addEventListener("click",close);
-    modal.addEventListener("click",e=>{if(e.target===modal)close()});
-    document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
-
-    document.getElementById("demoForm").addEventListener("submit",e=>{
-      e.preventDefault();
-      const btn=e.currentTarget.querySelector("button");
-      btn.textContent="ส่งคำขอเรียบร้อย ✓";btn.disabled=true;
-      setTimeout(()=>{close();e.currentTarget.reset();btn.textContent="ส่งคำขอ Demo";btn.disabled=false},1200);
+    menuButton.addEventListener("click", () => {
+      const open = mainNav.classList.toggle("open");
+      menuButton.textContent = open ? "✕" : "☰";
+      menuButton.setAttribute("aria-expanded", String(open));
     });
 
-    const sections=[...document.querySelectorAll("main section[id],footer[id]")];
-    const links=[...document.querySelectorAll(".nav-links a")];
-    const spy=new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(!entry.isIntersecting)return;
-        links.forEach(link=>link.classList.toggle("active",link.getAttribute("href")==="#"+entry.target.id));
+    mainNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mainNav.classList.remove("open");
+        menuButton.textContent = "☰";
+        menuButton.setAttribute("aria-expanded", "false");
       });
-    },{rootMargin:"-42% 0px -52% 0px"});
-    sections.forEach(s=>spy.observe(s));
+    });
+
+    const areaRange = document.getElementById("areaRange");
+    const rainRange = document.getElementById("rainRange");
+    const cropSelect = document.getElementById("cropSelect");
+    const solarToggle = document.getElementById("solarToggle");
+    const waterToggle = document.getElementById("waterToggle");
+    const drainToggle = document.getElementById("drainToggle");
+
+    const areaValue = document.getElementById("areaValue");
+    const rainValue = document.getElementById("rainValue");
+    const cropMapLabel = document.getElementById("cropMapLabel");
+
+    const yieldMetric = document.getElementById("yieldMetric");
+    const waterMetric = document.getElementById("waterMetric");
+    const solarMetric = document.getElementById("solarMetric");
+    const floodMetric = document.getElementById("floodMetric");
+    const floodLabel = document.getElementById("floodLabel");
+
+    const solarZone = document.getElementById("solarZone");
+    const waterChannel = document.getElementById("waterChannel");
+    const floodOverlay = document.getElementById("floodOverlay");
+
+    const cropData = {
+      rice: { label: "Rice Plot", yieldFactor: 0.145, waterBase: 0, floodBase: 18 },
+      corn: { label: "Corn Plot", yieldFactor: 0.19, waterBase: 5, floodBase: 7 },
+      vegetable: { label: "Vegetable Plot", yieldFactor: 0.235, waterBase: 10, floodBase: 10 },
+      fruit: { label: "Fruit Orchard", yieldFactor: 0.13, waterBase: 7, floodBase: 13 }
+    };
+
+    const rainLabels = ["น้อย", "ปกติ", "สูง"];
+
+    function updateSimulation() {
+      const area = Number(areaRange.value);
+      const rain = Number(rainRange.value);
+      const crop = cropData[cropSelect.value];
+      const hasSolar = solarToggle.checked;
+      const hasWater = waterToggle.checked;
+      const hasDrain = drainToggle.checked;
+
+      areaValue.textContent = area + " ไร่";
+      rainValue.textContent = rainLabels[rain];
+      cropMapLabel.textContent = crop.label;
+
+      let yieldValue = area * crop.yieldFactor;
+      if (hasWater) yieldValue *= 1.12;
+      if (rain === 0) yieldValue *= hasWater ? 0.94 : 0.79;
+      if (rain === 2) yieldValue *= hasDrain ? 0.98 : 0.87;
+
+      const waterSaving = Math.max(
+        0,
+        crop.waterBase + (hasWater ? 17 : 0) + (hasSolar && hasWater ? 5 : 0)
+      );
+
+      const solarGeneration = hasSolar ? Math.round(area * 16.4) : 0;
+
+      let floodRisk = 31 + rain * 22 + crop.floodBase;
+      if (hasDrain) floodRisk -= 26;
+      if (hasWater) floodRisk -= 8;
+      floodRisk = Math.min(92, Math.max(12, Math.round(floodRisk)));
+
+      yieldMetric.textContent = yieldValue.toFixed(1) + " ตัน";
+      waterMetric.textContent = waterSaving > 0 ? "-" + waterSaving + "%" : "มาตรฐาน";
+      solarMetric.textContent = solarGeneration + " kWh";
+      floodMetric.textContent = floodRisk + "%";
+
+      if (floodRisk < 35) {
+        floodLabel.textContent = "ระดับต่ำ";
+      } else if (floodRisk < 65) {
+        floodLabel.textContent = "ระดับปานกลาง";
+      } else {
+        floodLabel.textContent = "ระดับสูง";
+      }
+
+      solarZone.style.opacity = hasSolar ? "1" : "0";
+      waterChannel.style.opacity = hasWater || hasDrain ? "1" : "0";
+      floodOverlay.style.opacity = Math.max(0.08, floodRisk / 115).toString();
+    }
+
+    [areaRange, rainRange, cropSelect, solarToggle, waterToggle, drainToggle].forEach((control) => {
+      control.addEventListener("input", updateSimulation);
+      control.addEventListener("change", updateSimulation);
+    });
+
+    const layerButtons = document.querySelectorAll(".layer-button");
+
+    layerButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        layerButtons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        const layer = button.dataset.layer;
+        const hasSolar = solarToggle.checked;
+        const hasWater = waterToggle.checked || drainToggle.checked;
+
+        solarZone.style.opacity = layer === "all" || layer === "solar"
+          ? (hasSolar ? "1" : "0")
+          : "0";
+
+        waterChannel.style.opacity = layer === "all" || layer === "water"
+          ? (hasWater ? "1" : "0")
+          : "0";
+
+        floodOverlay.style.opacity = layer === "flood" || layer === "all"
+          ? (layer === "flood" ? "0.78" : "0.35")
+          : "0";
+      });
+    });
+
+    updateSimulation();
+
+    const sections = document.querySelectorAll("main section[id], footer[id]");
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          navLinks.forEach((link) => {
+            link.classList.toggle(
+              "active",
+              link.getAttribute("href") === "#" + entry.target.id
+            );
+          });
+        });
+      },
+      { rootMargin: "-42% 0px -52% 0px", threshold: 0 }
+    );
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    const modal = document.getElementById("demoModal");
+    const modalClose = document.getElementById("modalClose");
+    const modalButtons = document.querySelectorAll("[data-open-modal]");
+    const demoForm = document.getElementById("demoForm");
+
+    function openModal() {
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    modalButtons.forEach((button) => button.addEventListener("click", openModal));
+    modalClose.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeModal();
+    });
+
+    demoForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const submitButton = demoForm.querySelector("button[type='submit']");
+      submitButton.textContent = "ส่งคำขอเรียบร้อย ✓";
+      submitButton.disabled = true;
+
+      setTimeout(() => {
+        closeModal();
+        demoForm.reset();
+        submitButton.textContent = "ส่งคำขอ Demo";
+        submitButton.disabled = false;
+      }, 1300);
+    });
   </script>
 </body>
 </html>
