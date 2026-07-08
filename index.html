@@ -1,100 +1,644 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#17663b">
-<title>SunKaset | Professional Pitch UI</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--g900:#0b4d2d;--g800:#17663b;--g700:#23804b;--g600:#45a25f;--g300:#a8d5aa;--g200:#cae8cc;--g100:#e9f6ea;--g50:#f7fcf7;--yellow:#f6c949;--text:#1c3428;--muted:#65736b;--line:#dcecdf;--white:#fff;--shadow:0 16px 42px rgba(18,84,48,.10);--page:min(1440px,calc(100% - 44px))}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:"Anuphan",sans-serif;color:var(--text);background:#f9fcf9;line-height:1.65}a{text-decoration:none;color:inherit}button,input,select{font:inherit}.page{width:var(--page);margin:auto}.section{padding:72px 0}.title{display:flex;align-items:center;gap:16px;color:var(--g900);font-size:clamp(1.55rem,2.1vw,2.2rem);margin-bottom:26px}.title:after{content:"";height:2px;flex:1;background:linear-gradient(90deg,var(--g600),transparent)}
-/* NAV */
-.nav{position:sticky;top:0;z-index:1000;height:74px;background:rgba(255,255,255,.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(23,102,59,.08)}.navin{width:var(--page);height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px}.logo{width:45px;height:45px;border-radius:14px;background:var(--g100);display:grid;place-items:center;border:1px solid var(--g200)}.brand strong{display:block;color:var(--g900);font-size:1.35rem;line-height:1}.brand small{color:var(--muted)}.links{display:flex;align-items:center;gap:30px}.links a{padding:26px 0 21px;position:relative}.links a:after{content:"";position:absolute;left:0;right:0;bottom:15px;height:2px;background:var(--g800);transform:scaleX(0);transition:.2s}.links a:hover:after,.links a.active:after{transform:scaleX(1)}.btn{border:0;border-radius:12px;padding:13px 20px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.22s}.primary{background:linear-gradient(135deg,var(--g700),var(--g900));color:#fff;box-shadow:0 10px 24px rgba(23,102,59,.22)}.primary:hover{transform:translateY(-2px)}.outline{border:1px solid var(--g300);background:#fff;color:var(--g800)}.menu{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff}
-/* HERO */
-.hero{min-height:610px;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(circle at 14% 15%,#fff 0 11%,transparent 28%),linear-gradient(120deg,#f9fcf9,#e7f5e9)}.heroin{width:var(--page);margin:auto;display:grid;grid-template-columns:.92fr 1.08fr;gap:35px;align-items:center;padding:58px 0}.tag{display:inline-flex;align-items:center;gap:8px;background:var(--g100);color:var(--g800);padding:8px 13px;border-radius:999px;font-weight:600;font-size:.86rem;margin-bottom:16px}.dot{width:8px;height:8px;border-radius:50%;background:var(--g600);box-shadow:0 0 0 5px rgba(69,162,95,.13)}.copy h1{font-size:clamp(2.5rem,4.6vw,4.9rem);line-height:1.12;letter-spacing:-.035em;color:var(--g900);margin-bottom:21px}.copy p{font-size:1.07rem;color:#53655a;max-width:650px;margin-bottom:28px}.actions{display:flex;gap:13px;flex-wrap:wrap}.points{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);margin-top:27px;font-size:.88rem}.points span{display:flex;align-items:center;gap:7px}.check{width:20px;height:20px;border-radius:50%;background:var(--g100);color:var(--g800);display:grid;place-items:center;font-size:.72rem;font-weight:700}
-.visual{position:relative;min-height:500px}.scene{position:absolute;inset:25px 0 10px 7%;overflow:hidden;border-radius:34px;background:linear-gradient(#eef9f0 0 52%,#c9e9c7 52% 100%);box-shadow:var(--shadow);border:1px solid rgba(23,102,59,.08)}.scene:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-30%;height:66%;border-radius:50%;background:repeating-linear-gradient(165deg,#7ebc64 0 18px,#9ed37e 18px 36px);transform:rotate(-3deg)}.mount{position:absolute;left:-8%;right:-8%;bottom:120px;height:220px;background:radial-gradient(ellipse at 20% 100%,#8fbe88 0 43%,transparent 44%),radial-gradient(ellipse at 48% 100%,#b7dcaf 0 48%,transparent 49%),radial-gradient(ellipse at 78% 100%,#86b77e 0 44%,transparent 45%)}.cloud{position:absolute;width:110px;height:32px;border-radius:999px;background:rgba(255,255,255,.9);box-shadow:24px -17px 0 -5px #fff,55px -7px 0 -9px #fff;animation:cloud 5s ease-in-out infinite alternate}.c1{top:82px;left:9%}.c2{top:145px;right:4%;transform:scale(.72)}@keyframes cloud{to{translate:15px 0}}
-.sun{position:absolute;z-index:7;right:17%;top:28px;width:105px;height:105px;border-radius:50%;background:radial-gradient(circle at 36% 32%,#fff08f,#ffd655 50%,#f2b927);box-shadow:0 0 0 12px rgba(246,201,73,.08),0 15px 30px rgba(242,185,39,.25);animation:float 4s ease-in-out infinite}.sun:before,.sun:after{content:"";position:absolute;top:42px;width:9px;height:9px;background:#54361f;border-radius:50%}.sun:before{left:31px}.sun:after{right:31px}.smile{position:absolute;width:32px;height:17px;left:37px;top:56px;border-bottom:4px solid #54361f;border-radius:0 0 22px 22px}@keyframes float{50%{transform:translateY(-8px) rotate(2deg)}}.ray{position:absolute;left:50%;top:50%;width:5px;height:22px;border-radius:99px;background:#efb82d;transform-origin:50% 64px}.r1{transform:translate(-50%,-50%) rotate(0) translateY(-72px)}.r2{transform:translate(-50%,-50%) rotate(45deg) translateY(-72px)}.r3{transform:translate(-50%,-50%) rotate(90deg) translateY(-72px)}.r4{transform:translate(-50%,-50%) rotate(135deg) translateY(-72px)}.r5{transform:translate(-50%,-50%) rotate(180deg) translateY(-72px)}.r6{transform:translate(-50%,-50%) rotate(225deg) translateY(-72px)}.r7{transform:translate(-50%,-50%) rotate(270deg) translateY(-72px)}.r8{transform:translate(-50%,-50%) rotate(315deg) translateY(-72px)}
-.house{position:absolute;z-index:6;left:19%;bottom:103px;width:170px;height:105px;border-radius:10px;background:#c59864;box-shadow:0 12px 22px rgba(0,0,0,.15)}.house:before{content:"";position:absolute;left:-17px;top:-43px;width:204px;height:62px;background:#664b3b;clip-path:polygon(50% 0,100% 76%,92% 100%,8% 100%,0 76%)}.panel{position:absolute;z-index:2;left:35px;top:-35px;width:105px;height:45px;border:4px solid #31556c;border-radius:4px;transform:skewX(-16deg);background:linear-gradient(rgba(255,255,255,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.28) 1px,transparent 1px),linear-gradient(135deg,#245c78,#4d94b2);background-size:25px 15px}.door{position:absolute;left:68px;bottom:0;width:34px;height:59px;border-radius:8px 8px 0 0;background:#684a39}.window{position:absolute;top:28px;width:32px;height:28px;border:4px solid #684a39;background:#c7e9ef}.wl{left:18px}.wr{right:18px}.tower{position:absolute;z-index:5;left:56%;bottom:104px;width:10px;height:200px;background:#68786e}.tower:after{content:"";position:absolute;inset:0 -35px;background:linear-gradient(64deg,transparent 48%,#68786e 49% 51%,transparent 52%),linear-gradient(-64deg,transparent 48%,#68786e 49% 51%,transparent 52%);background-size:100% 42px}.farmer{position:absolute;z-index:8;right:8%;bottom:68px;width:150px;height:245px}.head{position:absolute;left:48px;top:37px;width:64px;height:75px;border-radius:46%;background:#e7ab70}.hat{position:absolute;left:20px;top:13px;width:120px;height:29px;border-radius:50%;background:#d5a34c;transform:rotate(6deg)}.hat:after{content:"";position:absolute;left:31px;top:-19px;width:62px;height:32px;border-radius:50% 50% 20% 20%;background:#e0b35a}.body{position:absolute;left:34px;top:104px;width:90px;height:128px;border-radius:34px 34px 18px 18px;background:#408b59}.tablet{position:absolute;left:42px;top:136px;width:76px;height:56px;border:6px solid #354b45;border-radius:8px;background:#cbefdf;transform:rotate(-4deg)}.floatcard{position:absolute;z-index:10;padding:11px 14px;border-radius:14px;background:rgba(255,255,255,.88);box-shadow:0 14px 28px rgba(18,77,45,.14);font-size:.82rem}.floatcard strong{display:block;color:var(--g900);font-size:1rem}.fc1{left:2%;bottom:48px}.fc2{right:2%;top:158px}
-/* FEATURES */
-.features{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:#fff;border:1px solid var(--g200);border-radius:20px;padding:25px;box-shadow:0 8px 24px rgba(18,77,45,.05);transition:.22s}.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}.icon{width:54px;height:54px;border-radius:17px;background:var(--g100);display:grid;place-items:center;font-size:1.55rem;margin-bottom:17px}.card h3{color:var(--g900);font-size:1.08rem;margin-bottom:9px}.card p{color:var(--muted);font-size:.91rem}
-/* CONTENT */
-.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:start}.panelbox{background:rgba(255,255,255,.78);border:1px solid rgba(23,102,59,.08);border-radius:27px;padding:25px;box-shadow:var(--shadow)}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fff}table{width:100%;min-width:760px;border-collapse:collapse}thead{background:var(--g100);color:var(--g900)}th,td{padding:15px 14px;text-align:left;border-bottom:1px solid #edf4ee;font-size:.88rem}tbody tr:last-child td{border-bottom:0}.status{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;font-size:.74rem;font-weight:600}.done{background:#e1f5e7;color:#1b7846}.progress{background:#fff5cc;color:#9a6a04}.pending{background:#eef1ef;color:#68736d}.sdot{width:7px;height:7px;border-radius:50%;background:currentColor}
-.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px}.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;min-height:130px}.metric .emoji{font-size:1.45rem}.metric small{display:block;color:#45564c;font-weight:600;margin-top:5px}.metric b{display:block;color:var(--g900);font-size:1.65rem;line-height:1.2;margin:4px 0}.metric span{font-size:.71rem;color:#7c8881}.dashbottom{display:grid;grid-template-columns:.86fr 1.14fr;gap:14px}.map,.chart{min-height:222px;border:1px solid var(--line);border-radius:17px;background:#fff;overflow:hidden;position:relative}.map{background:linear-gradient(25deg,transparent 49%,rgba(255,255,255,.5) 50% 51%,transparent 52%),linear-gradient(-25deg,transparent 49%,rgba(255,255,255,.44) 50% 51%,transparent 52%),repeating-linear-gradient(90deg,#486c3c 0 30px,#638b4f 30px 62px);background-size:70px 50px,70px 50px,auto}.heat{position:absolute;inset:30px 24px 33px;border:3px solid #f6c949;clip-path:polygon(12% 8%,91% 4%,98% 75%,74% 94%,6% 84%,0 26%);background:radial-gradient(circle at 50% 50%,rgba(221,67,51,.78),transparent 19%),radial-gradient(circle at 36% 42%,rgba(252,191,50,.78),transparent 27%),radial-gradient(circle at 67% 56%,rgba(84,191,119,.82),transparent 35%),rgba(78,179,110,.44)}.scale{position:absolute;left:14px;right:14px;bottom:11px;display:flex;align-items:center;gap:7px;color:#fff;font-size:.66rem;text-shadow:0 1px 2px #000}.bar{height:7px;flex:1;border-radius:99px;background:linear-gradient(90deg,#77bb68,#e3d95a,#ed8b3e,#ba3e34)}.chart{padding:14px}.charthead{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.charthead strong{font-size:.87rem}.chart select{border:1px solid var(--line);border-radius:8px;padding:5px 8px;color:var(--muted);font-size:.7rem}.chart svg{width:100%;height:170px}.gridline{stroke:#e8efe9;stroke-width:1}.line{fill:none;stroke:var(--g600);stroke-width:3}.fill{fill:url(#grad);opacity:.58}.point{fill:#fff;stroke:var(--g700);stroke-width:2.5}
-/* TECH / CTA / FOOTER */
-.tech{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.techcard{background:#fff;border:1px solid var(--line);border-radius:17px;min-height:140px;display:grid;place-items:center;align-content:center;text-align:center;gap:7px}.techicon{width:47px;height:47px;border-radius:14px;display:grid;place-items:center;font-weight:700;font-size:1.35rem}.t1{background:#fff0e7;color:#e85d22}.t2{background:#e8f3ff;color:#1b75bb}.t3{background:#fff8c9;color:#8a7100}.t4{background:#eef4ff;color:#356da8}.t5{background:#f2f6ff;color:#1f74d5}.t6{background:var(--g100);color:var(--g800)}.techcard strong{font-size:.88rem}.techcard span{font-size:.7rem;color:var(--muted)}.cta{margin-top:66px;border-radius:30px;padding:45px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;background:linear-gradient(135deg,var(--g800),var(--g900));color:#fff}.cta h2{font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.25;margin-bottom:8px}.cta p{color:rgba(255,255,255,.75)}.cta .actions{justify-content:flex-end}.cta .primary{background:#fff;color:var(--g900);box-shadow:none}.cta .outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}footer{margin-top:72px;background:#eff8f0;border-top:1px solid var(--line)}.foot{width:var(--page);margin:auto;padding:42px 0 25px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:38px}.foot h4{color:var(--g900);margin-bottom:10px}.foot p,.foot a{display:block;color:var(--muted);font-size:.83rem;margin-bottom:7px}.copyright{width:var(--page);margin:auto;padding:17px 0 23px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#718078;font-size:.77rem}
-/* MODAL */
-.modal{position:fixed;inset:0;z-index:2000;display:none;place-items:center;padding:20px;background:rgba(8,32,20,.55);backdrop-filter:blur(8px)}.modal.open{display:grid}.modalbox{width:min(520px,100%);background:#fff;border-radius:23px;padding:27px;box-shadow:0 30px 80px rgba(0,0,0,.22)}.modaltop{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.close{width:38px;height:38px;border:0;border-radius:10px;background:var(--g100);color:var(--g900)}.form{display:grid;gap:12px}.form label{font-size:.82rem;font-weight:600;color:#43564b}.form input,.form select{width:100%;margin-top:5px;padding:12px;border:1px solid var(--line);border-radius:11px;outline:none}.form input:focus,.form select:focus{border-color:var(--g600);box-shadow:0 0 0 4px rgba(69,162,95,.12)}
-@media(max-width:1180px){.features{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.tech{grid-template-columns:repeat(3,1fr)}.links{gap:19px}}
-@media(max-width:900px){.links,.navbtn{display:none}.menu{display:grid;place-items:center}.links.open{display:grid;position:absolute;left:18px;right:18px;top:67px;padding:11px;border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow)}.links.open a{padding:11px 13px}.links.open a:after{display:none}.heroin{grid-template-columns:1fr}.copy{text-align:center}.copy p{margin-left:auto;margin-right:auto}.actions,.points{justify-content:center}.visual{min-height:490px}.cta{grid-template-columns:1fr;text-align:center}.cta .actions{justify-content:center}.foot{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:680px){:root{--page:calc(100% - 24px)}.section{padding:54px 0}.brand small{display:none}.copy h1{font-size:clamp(2.15rem,11vw,3.2rem)}.visual{min-height:410px}.scene{inset:18px 0 10px}.house{left:8%;transform:scale(.78);transform-origin:bottom left}.tower{left:52%;transform:scale(.8);transform-origin:bottom}.farmer{right:-4%;transform:scale(.76);transform-origin:bottom right}.sun{width:88px;height:88px;right:9%}.sun:before,.sun:after{top:35px}.sun:before{left:26px}.sun:after{right:26px}.smile{left:30px;top:47px;width:29px}.features{grid-template-columns:1fr}.panelbox{padding:17px;border-radius:21px}.metrics{grid-template-columns:repeat(2,1fr)}.dashbottom{grid-template-columns:1fr}.tech{grid-template-columns:repeat(2,1fr)}.cta{padding:32px 21px}.foot{grid-template-columns:1fr}.copyright{flex-direction:column}.floatcard{display:none}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#183f24" />
+  <meta name="description" content="SunKaset AI — เว็บแอปเกษตรอัจฉริยะ วิเคราะห์ฟาร์ม สุขภาพพืช น้ำ ดิน และผลผลิตในหน้าจอเดียว" />
+  <title>SunKaset AI | Smart Farming Platform</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --forest:#173e24;
+      --forest-2:#245631;
+      --leaf:#78a900;
+      --leaf-2:#9cc51b;
+      --lime:#ddecba;
+      --cream:#f7f8ef;
+      --paper:#ffffff;
+      --text:#1d2b21;
+      --muted:#6d786f;
+      --line:#e7ebdf;
+      --glass:rgba(255,255,255,.14);
+      --glass-border:rgba(255,255,255,.28);
+      --shadow:0 24px 70px rgba(28,62,36,.15);
+      --page:min(1240px,calc(100% - 40px));
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"Anuphan",system-ui,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 10% 10%,#eef7dd 0,transparent 28%),
+        linear-gradient(180deg,#f8fbf5 0%,#f5f7ef 100%);
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+    button,input,select{font:inherit}
+    .shell{width:var(--page);margin:auto}
+
+    /* NAV */
+    .nav{
+      position:sticky;top:0;z-index:1000;
+      background:rgba(248,251,245,.86);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(25,72,36,.08);
+    }
+    .nav-inner{
+      width:var(--page);height:76px;margin:auto;
+      display:flex;align-items:center;justify-content:space-between;gap:24px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;min-width:max-content}
+    .brand-mark{
+      width:46px;height:46px;border-radius:15px;
+      display:grid;place-items:center;
+      background:linear-gradient(145deg,#dff0ad,#f8ffe2);
+      box-shadow:0 10px 22px rgba(67,105,32,.18);
+    }
+    .brand-mark svg{width:31px}
+    .brand-copy strong{display:block;font-size:1.28rem;color:var(--forest);line-height:1.05}
+    .brand-copy span{font-size:.73rem;color:var(--muted)}
+    .nav-links{display:flex;align-items:center;gap:28px;font-size:.93rem;color:#4d5d51}
+    .nav-links a{position:relative;padding:27px 0 23px}
+    .nav-links a::after{
+      content:"";position:absolute;left:0;right:0;bottom:16px;height:2px;
+      background:var(--leaf);transform:scaleX(0);transition:.22s;
+    }
+    .nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+    .nav-links a:hover,.nav-links a.active{color:var(--forest)}
+    .menu-btn{display:none;border:1px solid var(--line);background:#fff;width:44px;height:44px;border-radius:12px;cursor:pointer}
+
+    .btn{
+      min-height:48px;padding:0 21px;border-radius:14px;border:0;
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      font-weight:600;cursor:pointer;transition:.22s ease;
+    }
+    .btn-primary{
+      color:#fff;background:linear-gradient(135deg,var(--forest-2),var(--forest));
+      box-shadow:0 12px 28px rgba(23,62,36,.2);
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(23,62,36,.27)}
+    .btn-light{background:#fff;color:var(--forest);border:1px solid #d9e2d5}
+    .btn-light:hover{transform:translateY(-2px);border-color:#c2d3b9}
+
+    /* HERO */
+    .hero{
+      position:relative;padding:78px 0 92px;overflow:hidden;
+    }
+    .hero::before{
+      content:"";position:absolute;left:-120px;top:80px;width:340px;height:340px;border-radius:50%;
+      background:#dceeb8;filter:blur(80px);opacity:.55;
+    }
+    .hero::after{
+      content:"";position:absolute;right:-130px;bottom:20px;width:400px;height:400px;border-radius:50%;
+      background:#c8e1c2;filter:blur(90px);opacity:.5;
+    }
+    .hero-grid{
+      position:relative;z-index:2;
+      display:grid;grid-template-columns:.9fr 1.1fr;gap:58px;align-items:center;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:9px;
+      padding:9px 14px;border-radius:999px;
+      background:#edf6d5;color:#466319;font-weight:600;font-size:.86rem;
+      margin-bottom:18px;
+    }
+    .pill i{width:8px;height:8px;border-radius:50%;background:var(--leaf);box-shadow:0 0 0 5px rgba(120,169,0,.12)}
+    h1{
+      font-size:clamp(2.7rem,5.8vw,5.5rem);line-height:1.02;
+      letter-spacing:-.055em;color:var(--forest);margin-bottom:22px;
+    }
+    .hero-copy p{font-size:1.08rem;color:#536156;max-width:620px;margin-bottom:30px}
+    .hero-actions{display:flex;gap:13px;flex-wrap:wrap}
+    .hero-proof{display:flex;gap:20px;flex-wrap:wrap;margin-top:28px;color:#667268;font-size:.88rem}
+    .hero-proof span{display:flex;align-items:center;gap:8px}
+    .check{width:21px;height:21px;border-radius:50%;display:grid;place-items:center;background:#e7f2cc;color:#4e7210;font-weight:700;font-size:.74rem}
+
+    .mockup-wrap{
+      position:relative;border-radius:34px;padding:16px;
+      background:rgba(255,255,255,.54);
+      border:1px solid rgba(255,255,255,.8);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(14px);
+    }
+    .mockup-wrap img{border-radius:25px;width:100%}
+    .float-card{
+      position:absolute;padding:14px 16px;border-radius:18px;
+      background:rgba(24,62,36,.78);color:#fff;
+      border:1px solid rgba(255,255,255,.22);
+      backdrop-filter:blur(16px);
+      box-shadow:0 18px 42px rgba(16,51,29,.24);
+      animation:float 4s ease-in-out infinite;
+      min-width:145px;
+    }
+    .float-card strong{display:block;font-size:1.28rem}
+    .float-card small{opacity:.75}
+    .float-card.one{left:-26px;bottom:44px}
+    .float-card.two{right:-20px;top:38px;animation-delay:-1.5s}
+    @keyframes float{50%{transform:translateY(-8px)}}
+
+    /* STATS */
+    .stats{
+      margin-top:-40px;position:relative;z-index:3;
+      display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+    }
+    .stat{
+      background:rgba(255,255,255,.88);border:1px solid rgba(35,86,49,.08);
+      border-radius:20px;padding:22px;box-shadow:0 12px 28px rgba(32,69,39,.07);
+    }
+    .stat small{color:var(--muted)}
+    .stat strong{display:block;color:var(--forest);font-size:1.8rem;margin-top:5px}
+
+    /* SECTIONS */
+    .section{padding:86px 0}
+    .section-head{max-width:780px;margin-bottom:32px}
+    .eyebrow{color:#5f800d;font-weight:700;font-size:.86rem;letter-spacing:.07em;text-transform:uppercase}
+    h2{font-size:clamp(2rem,3.3vw,3.35rem);line-height:1.15;color:var(--forest);margin:8px 0 12px}
+    .section-head p{color:var(--muted)}
+
+    .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+    .feature-card{
+      padding:25px;border-radius:22px;background:#fff;border:1px solid var(--line);
+      box-shadow:0 10px 28px rgba(31,70,40,.06);transition:.24s;
+    }
+    .feature-card:hover{transform:translateY(-7px);box-shadow:0 18px 42px rgba(31,70,40,.12)}
+    .icon{
+      width:54px;height:54px;border-radius:16px;display:grid;place-items:center;
+      background:#edf5d9;font-size:1.45rem;margin-bottom:18px;
+    }
+    .feature-card h3{color:var(--forest);margin-bottom:9px}
+    .feature-card p{color:var(--muted);font-size:.92rem}
+
+    /* EXPERIENCE */
+    .experience{
+      background:linear-gradient(135deg,#173e24,#284f31);
+      color:#fff;overflow:hidden;position:relative;
+    }
+    .experience::before{
+      content:"";position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 10% 20%,rgba(189,223,101,.15),transparent 30%),
+        radial-gradient(circle at 88% 82%,rgba(255,255,255,.08),transparent 28%);
+    }
+    .experience-grid{position:relative;display:grid;grid-template-columns:.88fr 1.12fr;gap:58px;align-items:center}
+    .experience .eyebrow{color:#cfe48f}
+    .experience h2{color:#fff}
+    .experience p{color:rgba(255,255,255,.72)}
+    .experience-list{display:grid;gap:13px;margin-top:25px}
+    .experience-item{display:flex;gap:12px;align-items:flex-start}
+    .experience-item b{display:block;margin-bottom:2px}
+    .experience-item span{color:rgba(255,255,255,.67);font-size:.9rem}
+    .experience-shot{
+      display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:end;
+    }
+    .phone-card{
+      border-radius:34px;padding:10px;background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.22);box-shadow:0 25px 60px rgba(0,0,0,.25);
+    }
+    .phone-card img{border-radius:27px;height:560px;width:100%;object-fit:cover;object-position:center top}
+    .phone-card:last-child{transform:translateY(48px)}
+
+    /* HOW */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .step{
+      position:relative;background:#fff;border:1px solid var(--line);
+      border-radius:22px;padding:27px;overflow:hidden;
+    }
+    .step-no{
+      position:absolute;right:17px;top:6px;font-size:4.5rem;line-height:1;
+      font-weight:700;color:#eff3e8;
+    }
+    .step h3{position:relative;color:var(--forest);margin:11px 0 8px}
+    .step p{position:relative;color:var(--muted);font-size:.92rem}
+
+    /* DASHBOARD */
+    .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+    .dash-card{
+      background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;
+    }
+    .dash-card .label{color:var(--muted);font-size:.86rem}
+    .dash-card strong{display:block;color:var(--forest);font-size:2rem;margin:5px 0}
+    .bar{height:8px;background:#edf0e8;border-radius:99px;overflow:hidden;margin-top:12px}
+    .bar span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--leaf),var(--leaf-2))}
+    .insight{
+      margin-top:20px;display:grid;grid-template-columns:1fr .8fr;gap:18px;
+    }
+    .insight-card{
+      background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;
+    }
+    .chart{
+      height:210px;margin-top:15px;border-radius:17px;
+      background:
+        linear-gradient(to top,rgba(120,169,0,.16),transparent 66%),
+        repeating-linear-gradient(to right,transparent 0 70px,#edf0ea 71px),
+        repeating-linear-gradient(to bottom,transparent 0 41px,#edf0ea 42px);
+      position:relative;overflow:hidden;
+    }
+    .chart svg{position:absolute;inset:0;width:100%;height:100%}
+    .ai-box{
+      height:100%;background:linear-gradient(145deg,#edf5dc,#f9fbf4);
+      display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .ai-tag{display:inline-flex;width:max-content;padding:7px 10px;border-radius:99px;background:#dcebac;color:#4c6716;font-size:.78rem;font-weight:700}
+    .ai-box h3{color:var(--forest);font-size:1.55rem;margin:15px 0 8px}
+    .ai-box p{color:var(--muted)}
+    .recommendation{margin-top:18px;padding:15px;border-radius:16px;background:#fff;border:1px solid #e5eadc}
+
+    /* CTA */
+    .cta{
+      margin:76px auto 0;padding:48px;border-radius:30px;
+      background:linear-gradient(135deg,#7da900,#4f7713);color:#fff;
+      display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:25px;
+      box-shadow:0 24px 55px rgba(79,119,19,.25);
+    }
+    .cta h2{color:#fff;margin:0 0 10px}
+    .cta p{color:rgba(255,255,255,.78)}
+    .cta-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+    .cta .btn-primary{background:#fff;color:#35530c;box-shadow:none}
+    .cta .btn-light{background:transparent;border-color:rgba(255,255,255,.4);color:#fff}
+
+    /* FOOTER */
+    footer{margin-top:86px;background:#edf3e7;border-top:1px solid #dfe8d8}
+    .footer-grid{
+      width:var(--page);margin:auto;padding:45px 0 28px;
+      display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:40px;
+    }
+    .footer-grid h4{color:var(--forest);margin-bottom:12px}
+    .footer-grid a,.footer-grid p{display:block;color:var(--muted);font-size:.86rem;margin-bottom:8px}
+    .copyright{
+      width:var(--page);margin:auto;padding:18px 0 24px;border-top:1px solid #dae4d4;
+      color:#778176;font-size:.78rem;display:flex;justify-content:space-between;gap:15px;
+    }
+
+    /* MODAL */
+    .modal{
+      position:fixed;inset:0;z-index:2000;display:none;place-items:center;padding:20px;
+      background:rgba(8,27,14,.6);backdrop-filter:blur(8px)
+    }
+    .modal.open{display:grid}
+    .modal-card{width:min(520px,100%);background:#fff;border-radius:25px;padding:28px;box-shadow:0 30px 90px rgba(0,0,0,.3)}
+    .modal-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    .modal-top h3{color:var(--forest);font-size:1.45rem}
+    .close{width:38px;height:38px;border:0;border-radius:11px;background:#edf3e7;cursor:pointer}
+    .form{display:grid;gap:13px}
+    .form label{font-size:.84rem;font-weight:600;color:#455249}
+    .form input,.form select{
+      width:100%;margin-top:6px;padding:12px 13px;border:1px solid var(--line);
+      border-radius:12px;background:#fbfcf8;outline:none
+    }
+    .form input:focus,.form select:focus{border-color:#8bb61e;box-shadow:0 0 0 4px rgba(139,182,30,.12)}
+
+    /* RESPONSIVE */
+    @media(max-width:1050px){
+      .hero-grid,.experience-grid{grid-template-columns:1fr}
+      .hero-copy{text-align:center}
+      .hero-copy p{margin-left:auto;margin-right:auto}
+      .hero-actions,.hero-proof{justify-content:center}
+      .mockup-wrap{max-width:800px;margin:auto}
+      .feature-grid{grid-template-columns:repeat(2,1fr)}
+      .stats,.dash-grid{grid-template-columns:repeat(2,1fr)}
+      .insight{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:820px){
+      .nav-links,.nav-cta{display:none}
+      .menu-btn{display:grid;place-items:center}
+      .nav-links.open{
+        position:absolute;display:grid;top:70px;left:20px;right:20px;padding:12px;
+        background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)
+      }
+      .nav-links.open a{padding:12px 14px;border-radius:10px}
+      .nav-links.open a::after{display:none}
+      .nav-links.open a:hover{background:#eef3e9}
+      .experience-shot{max-width:620px;margin:auto}
+      .phone-card img{height:480px}
+      .steps{grid-template-columns:1fr}
+      .cta{grid-template-columns:1fr;text-align:center}
+      .cta-actions{justify-content:center}
+    }
+    @media(max-width:620px){
+      :root{--page:calc(100% - 24px)}
+      .hero{padding-top:54px}
+      h1{font-size:clamp(2.45rem,14vw,4rem)}
+      .float-card{display:none}
+      .stats{grid-template-columns:1fr 1fr;margin-top:18px}
+      .feature-grid{grid-template-columns:1fr}
+      .experience-shot{grid-template-columns:1fr}
+      .phone-card:last-child{transform:none}
+      .phone-card img{height:auto}
+      .dash-grid{grid-template-columns:1fr 1fr}
+      .cta{padding:32px 22px}
+      .footer-grid{grid-template-columns:1fr}
+      .copyright{flex-direction:column}
+    }
+  </style>
 </head>
+
 <body>
-<header class="nav">
-  <div class="navin">
-    <a class="brand" href="#overview"><div class="logo">🌱</div><div><strong>SunKaset</strong><small>Smart Solar Farming</small></div></a>
-    <nav class="links" id="navlinks"><a class="active" href="#overview">Overview</a><a href="#features">Features</a><a href="#roadmap">Roadmap</a><a href="#dashboard">Dashboard</a><a href="#technology">Technology</a><a href="#contact">Contact</a></nav>
-    <button class="btn primary navbtn openmodal">Request Demo ↗</button>
-    <button class="menu" id="menu" aria-label="เปิดเมนู">☰</button>
-  </div>
-</header>
-<main>
-<section class="hero" id="overview">
-  <div class="heroin">
-    <div class="copy">
-      <div class="tag"><span class="dot"></span>GeoAI × Solar × Sustainable Agriculture</div>
-      <h1>ยกระดับเกษตรกรด้วย GeoAI และนวัตกรรมพลังงานแสงอาทิตย์</h1>
-      <p>SunKaset ผสานข้อมูลดาวเทียม ปัญญาประดิษฐ์ และระบบพลังงานสะอาด เพื่อช่วยวางแผนฟาร์ม ลดต้นทุน และสร้างรายได้ใหม่จากคาร์บอนเครดิต</p>
-      <div class="actions"><a class="btn primary" href="#dashboard">Explore Dashboard ↗</a><button class="btn outline openmodal">Watch Demo ▶</button></div>
-      <div class="points"><span><i class="check">✓</i>วิเคราะห์พื้นที่ด้วย GeoAI</span><span><i class="check">✓</i>คำนวณพลังงาน Solar</span><span><i class="check">✓</i>ประเมิน Carbon Credit</span></div>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#home">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 42 42">
+            <circle cx="21" cy="9" r="5" fill="#f4c63d"/>
+            <path d="M21 38C9 34 8 22 8 19c7 0 11 3 13 8 2-5 6-8 13-8 0 3-1 15-13 19Z" fill="#79a900"/>
+            <path d="M21 37V22" stroke="#245631" stroke-width="2.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <strong>SunKaset AI</strong>
+          <span>Smart Farm Intelligence</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a class="active" href="#home">หน้าหลัก</a>
+        <a href="#features">ฟีเจอร์</a>
+        <a href="#experience">แอปพลิเคชัน</a>
+        <a href="#dashboard">แดชบอร์ด</a>
+        <a href="#contact">ติดต่อ</a>
+      </nav>
+
+      <button class="btn btn-primary nav-cta" data-modal>ทดลองใช้งาน ↗</button>
+      <button class="menu-btn" id="menuBtn" aria-label="เปิดเมนู">☰</button>
     </div>
-    <div class="visual">
-      <div class="scene">
-        <div class="cloud c1"></div><div class="cloud c2"></div><div class="mount"></div>
-        <div class="sun"><i class="ray r1"></i><i class="ray r2"></i><i class="ray r3"></i><i class="ray r4"></i><i class="ray r5"></i><i class="ray r6"></i><i class="ray r7"></i><i class="ray r8"></i><i class="smile"></i></div>
-        <div class="house"><div class="panel"></div><div class="window wl"></div><div class="window wr"></div><div class="door"></div></div>
-        <div class="tower"></div>
-        <div class="farmer"><div class="hat"></div><div class="head"></div><div class="body"></div><div class="tablet"></div></div>
-        <div class="floatcard fc1"><strong>☀️ 92%</strong>Solar Potential</div><div class="floatcard fc2"><strong>🌱 87%</strong>Crop Health</div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="shell hero-grid">
+        <div class="hero-copy">
+          <div class="pill"><i></i> AI for Sustainable Agriculture</div>
+          <h1>จัดการฟาร์มอย่างชาญฉลาดในทุกฤดูกาล</h1>
+          <p>
+            SunKaset AI รวมข้อมูลพื้นที่ ผลผลิต อายุพืช น้ำ ดิน และความเสี่ยงจากศัตรูพืช
+            ให้เกษตรกรเห็นภาพรวมและตัดสินใจได้แม่นยำจากหน้าจอเดียว
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" data-modal>เริ่มต้นใช้งาน ↗</button>
+            <a class="btn btn-light" href="#experience">ดูตัวอย่างแอป ▶</a>
+          </div>
+          <div class="hero-proof">
+            <span><b class="check">✓</b> วิเคราะห์พื้นที่ด้วย AI</span>
+            <span><b class="check">✓</b> ติดตามสุขภาพพืช</span>
+            <span><b class="check">✓</b> รองรับมือถือและเว็บ</span>
+          </div>
+        </div>
+
+        <div class="mockup-wrap">
+          <img src="assets/sunkaset-app-mockup.png" alt="ตัวอย่างแอป SunKaset AI บนมือถือ">
+          <div class="float-card one"><small>Plant Health</small><strong>78%</strong></div>
+          <div class="float-card two"><small>Estimated Yield</small><strong>3.24 Ton</strong></div>
+        </div>
       </div>
+    </section>
+
+    <div class="shell stats">
+      <div class="stat"><small>พื้นที่ฟาร์ม</small><strong data-count="25.6" data-suffix=" ไร่">0 ไร่</strong></div>
+      <div class="stat"><small>ผลผลิตคาดการณ์</small><strong data-count="3.24" data-suffix=" ตัน">0 ตัน</strong></div>
+      <div class="stat"><small>สุขภาพพืช</small><strong data-count="78" data-suffix="%">0%</strong></div>
+      <div class="stat"><small>ความชื้นดิน</small><strong data-count="68" data-suffix="%">0%</strong></div>
+    </div>
+
+    <section class="section" id="features">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">Core Features</div>
+          <h2>ทุกข้อมูลสำคัญของฟาร์ม อยู่ในระบบเดียว</h2>
+          <p>ออกแบบให้ใช้ง่ายบนมือถือ พร้อมข้อมูลที่ช่วยสนับสนุนการตัดสินใจในแต่ละวัน</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="icon">🗺️</div>
+            <h3>Field Mapping</h3>
+            <p>แบ่งแปลง ปักหมุดชนิดพืช และดูภาพรวมพื้นที่เพาะปลูกบนแผนที่</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">🌱</div>
+            <h3>Plant Health</h3>
+            <p>ติดตามสุขภาพพืชและแจ้งเตือนความผิดปกติของแต่ละแปลง</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">💧</div>
+            <h3>Water & Soil</h3>
+            <p>ดูระดับน้ำ ความชื้น และสภาพดินเพื่อวางแผนการให้น้ำที่เหมาะสม</p>
+          </article>
+          <article class="feature-card">
+            <div class="icon">🤖</div>
+            <h3>AI Recommendation</h3>
+            <p>AI แนะนำการดูแลพืชตามข้อมูลจริงของฟาร์มและช่วงอายุพืช</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section experience" id="experience">
+      <div class="shell experience-grid">
+        <div>
+          <div class="eyebrow">Mobile-first Experience</div>
+          <h2>ประสบการณ์ใช้งานแบบแอปมือถือที่ชัดเจนและเป็นธรรมชาติ</h2>
+          <p>
+            อินเทอร์เฟซเน้นภาพจริงของฟาร์ม การ์ดโปร่งใส และข้อมูลที่อ่านได้เร็ว
+            เหมาะสำหรับใช้งานภาคสนามทั้งบนมือถือ แท็บเล็ต และเว็บ
+          </p>
+
+          <div class="experience-list">
+            <div class="experience-item">
+              <b class="check">1</b>
+              <div><b>หน้าหลักเฉพาะบุคคล</b><span>สรุปพื้นที่ ผลผลิต และอายุพืชทันทีที่เข้าสู่ระบบ</span></div>
+            </div>
+            <div class="experience-item">
+              <b class="check">2</b>
+              <div><b>แผนที่แปลงแบบ Interactive</b><span>เลือกแปลงและดูสถานะพืชแต่ละชนิดได้อย่างรวดเร็ว</span></div>
+            </div>
+            <div class="experience-item">
+              <b class="check">3</b>
+              <div><b>Glass Dashboard</b><span>การ์ดข้อมูลโปร่งใสบนภาพพื้นที่จริง ดูสวยและอ่านง่าย</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience-shot">
+          <div class="phone-card"><img src="assets/home-screen.jpg" alt="หน้าหลักแอป SunKaset AI"></div>
+          <div class="phone-card"><img src="assets/field-screen.jpg" alt="หน้าแผนที่แปลงเกษตร SunKaset AI"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">How It Works</div>
+          <h2>เริ่มใช้งานง่ายใน 3 ขั้นตอน</h2>
+        </div>
+
+        <div class="steps">
+          <article class="step"><div class="step-no">01</div><div class="icon">📍</div><h3>เพิ่มพื้นที่ฟาร์ม</h3><p>ระบุตำแหน่ง วาดขอบเขตแปลง และเลือกชนิดพืชที่ปลูก</p></article>
+          <article class="step"><div class="step-no">02</div><div class="icon">📡</div><h3>เชื่อมต่อข้อมูล</h3><p>เชื่อมข้อมูลเซนเซอร์ ภาพถ่าย หรือกรอกข้อมูลฟาร์มด้วยตนเอง</p></article>
+          <article class="step"><div class="step-no">03</div><div class="icon">✨</div><h3>รับคำแนะนำจาก AI</h3><p>ดูสถานะล่าสุด การแจ้งเตือน และคำแนะนำที่เหมาะกับแต่ละแปลง</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dashboard" style="padding-top:20px">
+      <div class="shell">
+        <div class="section-head">
+          <div class="eyebrow">Smart Dashboard</div>
+          <h2>มองเห็นสถานะฟาร์มแบบเรียลไทม์</h2>
+        </div>
+
+        <div class="dash-grid">
+          <div class="dash-card"><div class="label">Water Depth</div><strong>52%</strong><div class="bar"><span style="width:52%"></span></div></div>
+          <div class="dash-card"><div class="label">Plant Health</div><strong>78%</strong><div class="bar"><span style="width:78%"></span></div></div>
+          <div class="dash-card"><div class="label">Soil Condition</div><strong>68%</strong><div class="bar"><span style="width:68%"></span></div></div>
+          <div class="dash-card"><div class="label">Pest Risk</div><strong>12%</strong><div class="bar"><span style="width:12%"></span></div></div>
+        </div>
+
+        <div class="insight">
+          <div class="insight-card">
+            <h3>แนวโน้มสุขภาพพืช</h3>
+            <div class="chart">
+              <svg viewBox="0 0 600 210" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#8ab817" stop-opacity=".45"/>
+                    <stop offset="100%" stop-color="#8ab817" stop-opacity=".02"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0 170 C70 145,90 120,150 132 S245 95,300 105 S400 70,455 88 S540 48,600 60 L600 210 L0 210Z" fill="url(#fill)"/>
+                <path d="M0 170 C70 145,90 120,150 132 S245 95,300 105 S400 70,455 88 S540 48,600 60" fill="none" stroke="#79a900" stroke-width="4"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="insight-card ai-box">
+            <div>
+              <span class="ai-tag">AI Insight Today</span>
+              <h3>แนะนำให้รดน้ำแปลง A1 ช่วง 17:30 น.</h3>
+              <p>ความชื้นดินมีแนวโน้มลดลงในช่วงบ่าย แต่ยังไม่พบความเสี่ยงศัตรูพืชสูง</p>
+            </div>
+            <div class="recommendation">☀️ สภาพอากาศเหมาะสมสำหรับการดูแลและตรวจแปลงในช่วงเย็น</div>
+          </div>
+        </div>
+
+        <div class="cta">
+          <div>
+            <h2>พร้อมเปลี่ยนฟาร์มให้เป็น Smart Farm แล้วหรือยัง?</h2>
+            <p>ทดลองดูหน้าจอ ระบบวิเคราะห์ และแนวทางการพัฒนาต่อยอดสำหรับโครงการของคุณ</p>
+          </div>
+          <div class="cta-actions">
+            <button class="btn btn-primary" data-modal>ขอ Demo</button>
+            <a class="btn btn-light" href="#features">ดูฟีเจอร์ทั้งหมด</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="#home">
+          <div class="brand-mark">🌱</div>
+          <div class="brand-copy"><strong>SunKaset AI</strong><span>Smart Farm Intelligence</span></div>
+        </a>
+        <p style="margin-top:14px;max-width:320px">เทคโนโลยีที่ช่วยให้เกษตรกรเข้าใจฟาร์มได้ง่ายขึ้น และตัดสินใจได้แม่นยำขึ้น</p>
+      </div>
+      <div><h4>เมนู</h4><a href="#features">ฟีเจอร์</a><a href="#experience">แอปพลิเคชัน</a><a href="#dashboard">แดชบอร์ด</a></div>
+      <div><h4>บริการ</h4><a href="#">วิเคราะห์ฟาร์ม</a><a href="#">AI Advisor</a><a href="#">Field Mapping</a></div>
+      <div><h4>ติดต่อ</h4><a href="mailto:hello@sunkaset.com">hello@sunkaset.com</a><p>Bangkok, Thailand</p></div>
+    </div>
+    <div class="copyright"><span>© 2026 SunKaset AI</span><span>Designed for Web & Mobile Experience</span></div>
+  </footer>
+
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <div class="modal-top">
+        <h3>ขอทดลองใช้งาน SunKaset AI</h3>
+        <button class="close" id="closeModal">✕</button>
+      </div>
+      <form class="form" id="demoForm">
+        <label>ชื่อ–นามสกุล<input required placeholder="กรอกชื่อของคุณ"></label>
+        <label>อีเมล<input type="email" required placeholder="name@example.com"></label>
+        <label>ประเภทผู้ใช้งาน
+          <select required>
+            <option value="">เลือกประเภท</option>
+            <option>เกษตรกร</option>
+            <option>นักศึกษา / นักวิจัย</option>
+            <option>บริษัท / นักลงทุน</option>
+            <option>หน่วยงานภาครัฐ</option>
+          </select>
+        </label>
+        <button class="btn btn-primary" type="submit">ส่งคำขอ Demo</button>
+      </form>
     </div>
   </div>
-</section>
-<section class="section" id="features"><div class="page"><h2 class="title">2. Key Features</h2><div class="features">
-  <article class="card"><div class="icon">🛰️</div><h3>GeoAI Assessment</h3><p>วิเคราะห์ภาพถ่ายดาวเทียมและโครงสร้างพื้นที่ เพื่อกำหนดขนาดระบบ Solar ที่เหมาะสมกับแต่ละฟาร์ม</p></article>
-  <article class="card"><div class="icon">🌿</div><h3>Smart Farm Analytics</h3><p>ติดตามข้อมูลดิน อากาศ น้ำ และสุขภาพพืชแบบเรียลไทม์ เพื่อสนับสนุนการตัดสินใจ</p></article>
-  <article class="card"><div class="icon">♻️</div><h3>Carbon Credit Engine</h3><p>คำนวณการลดก๊าซเรือนกระจกอัตโนมัติ พร้อมประเมินโอกาสสร้างรายได้จากคาร์บอนเครดิต</p></article>
-  <article class="card"><div class="icon">🤖</div><h3>AI Crop Advisor</h3><p>AI แนะนำช่วงเวลารดน้ำ การใช้พลังงาน และการดูแลพืชเพื่อช่วยลดต้นทุน</p></article>
-</div></div></section>
-<section class="section" style="padding-top:8px"><div class="page layout">
-  <section class="panelbox" id="roadmap"><h2 class="title">3. Project Roadmap</h2><div class="tablewrap"><table><thead><tr><th>Phase</th><th>Activity</th><th>Description</th><th>Timeline</th><th>Status</th></tr></thead><tbody>
-    <tr><td>Week 1</td><td>Research & Concept</td><td>วิเคราะห์ตลาดและความต้องการ</td><td>May 1–7</td><td><span class="status done"><i class="sdot"></i>Completed</span></td></tr>
-    <tr><td>Week 2</td><td>GeoAI Development</td><td>พัฒนาโมเดลศักยภาพแสงอาทิตย์</td><td>May 8–14</td><td><span class="status done"><i class="sdot"></i>Completed</span></td></tr>
-    <tr><td>Week 3</td><td>UI/UX Implementation</td><td>ออกแบบและพัฒนาหน้าจอระบบ</td><td>May 15–21</td><td><span class="status progress"><i class="sdot"></i>In Progress</span></td></tr>
-    <tr><td>Week 4</td><td>Refinement & Testing</td><td>ทดสอบและปรับปรุงประสิทธิภาพ</td><td>May 22–28</td><td><span class="status pending"><i class="sdot"></i>Pending</span></td></tr>
-    <tr><td>Week 5</td><td>Final Pitch</td><td>จัดทำ Pitch Deck และสาธิตระบบ</td><td>May 29–Jun 4</td><td><span class="status pending"><i class="sdot"></i>Pending</span></td></tr>
-  </tbody></table></div></section>
-  <section class="panelbox" id="dashboard"><h2 class="title">4. Dashboard Preview</h2><div class="metrics">
-    <div class="metric"><div class="emoji">☀️</div><small>Solar Potential</small><b data-count="92" data-suffix="%">0%</b><span>Excellent</span></div>
-    <div class="metric"><div class="emoji">🌱</div><small>Crop Health</small><b data-count="87" data-suffix="%">0%</b><span>Good</span></div>
-    <div class="metric"><div class="emoji">💧</div><small>Soil Moisture</small><b data-count="68" data-suffix="%">0%</b><span>Moderate</span></div>
-    <div class="metric"><div class="emoji">☁️</div><small>Carbon Reduction</small><b data-count="1.2" data-suffix=" t">0 t</b><span>CO₂ this month</span></div>
-  </div><div class="dashbottom"><div class="map"><div class="heat"></div><div class="scale"><span>Low</span><i class="bar"></i><span>High</span></div></div><div class="chart"><div class="charthead"><strong>Energy Generation (kWh)</strong><select><option>This Month</option><option>Last Month</option></select></div><svg viewBox="0 0 520 190"><defs><linearGradient id="grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#61b56f" stop-opacity=".55"/><stop offset="1" stop-color="#61b56f" stop-opacity=".04"/></linearGradient></defs><g><line class="gridline" x1="35" y1="20" x2="500" y2="20"/><line class="gridline" x1="35" y1="60" x2="500" y2="60"/><line class="gridline" x1="35" y1="100" x2="500" y2="100"/><line class="gridline" x1="35" y1="140" x2="500" y2="140"/><line class="gridline" x1="35" y1="178" x2="500" y2="178"/></g><path class="fill" d="M35 145 C80 110 100 120 145 92 S215 74 260 120 S335 98 380 54 S445 94 500 62 L500 178 L35 178Z"/><path class="line" d="M35 145 C80 110 100 120 145 92 S215 74 260 120 S335 98 380 54 S445 94 500 62"/><circle class="point" cx="35" cy="145" r="4"/><circle class="point" cx="145" cy="92" r="4"/><circle class="point" cx="260" cy="120" r="4"/><circle class="point" cx="380" cy="54" r="4"/><circle class="point" cx="500" cy="62" r="4"/></svg></div></div></section>
-</div></section>
-<section class="section" id="technology"><div class="page"><h2 class="title">5. Technology Stack</h2><div class="tech">
-  <div class="techcard"><i class="techicon t1">5</i><strong>HTML5</strong><span>Structure</span></div><div class="techcard"><i class="techicon t2">3</i><strong>CSS3</strong><span>Styling</span></div><div class="techcard"><i class="techicon t3">JS</i><strong>JavaScript</strong><span>Interactivity</span></div><div class="techcard"><i class="techicon t4">Py</i><strong>Python</strong><span>AI & Analytics</span></div><div class="techcard"><i class="techicon t5">⌖</i><strong>Google Maps</strong><span>GIS & Mapping</span></div><div class="techcard"><i class="techicon t6">☁</i><strong>Cloud</strong><span>Deployment</span></div>
-</div><div class="cta"><div><h2>เปลี่ยนข้อมูลฟาร์มให้เป็นการตัดสินใจที่แม่นยำ</h2><p>ดูตัวอย่างการวิเคราะห์พื้นที่ พลังงาน Solar สุขภาพพืช และการลดคาร์บอนในหน้าจอเดียว</p></div><div class="actions"><button class="btn primary openmodal">Request Demo</button><a class="btn outline" href="#features">Explore Features</a></div></div></div></section>
-</main>
-<footer id="contact"><div class="foot"><div><a class="brand" href="#overview"><div class="logo">🌱</div><div><strong>SunKaset</strong><small>Smart Solar Farming</small></div></a><p style="margin-top:13px">Smart Farming. Clean Energy. Better Future.</p></div><div><h4>Our Mission</h4><p>เพิ่มศักยภาพเกษตรกรด้วยเทคโนโลยีที่แม่นยำและยั่งยืน</p></div><div><h4>Quick Links</h4><a href="#features">Features</a><a href="#roadmap">Roadmap</a><a href="#dashboard">Dashboard</a></div><div><h4>Contact Us</h4><a href="mailto:hello@sunkaset.com">✉ hello@sunkaset.com</a><a href="tel:+66123456789">☎ +66 12 345 6789</a><p>Bangkok, Thailand</p></div></div><div class="copyright"><span>© 2026 SunKaset</span><span>Professional Pitch Deck UI</span></div></footer>
-<div class="modal" id="modal"><div class="modalbox"><div class="modaltop"><div><div class="tag" style="margin:0 0 7px">SunKaset Demo</div><h2>ขอทดลองใช้งานระบบ</h2></div><button class="close" id="close">✕</button></div><form class="form" id="form"><label>ชื่อ–นามสกุล<input required placeholder="กรอกชื่อของคุณ"></label><label>อีเมล<input type="email" required placeholder="name@example.com"></label><label>ประเภทผู้ใช้งาน<select required><option value="">เลือกประเภท</option><option>เกษตรกร</option><option>นักศึกษา / นักวิจัย</option><option>บริษัท / นักลงทุน</option><option>หน่วยงานภาครัฐ</option></select></label><button class="btn primary" type="submit">ส่งคำขอ Demo</button></form></div></div>
-<script>
-const menu=document.getElementById('menu'),nav=document.getElementById('navlinks');menu.onclick=()=>{nav.classList.toggle('open');menu.textContent=nav.classList.contains('open')?'✕':'☰'};nav.querySelectorAll('a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');menu.textContent='☰'});
-const sections=document.querySelectorAll('main section[id],footer[id]'),links=document.querySelectorAll('.links a');new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -52% 0px'}).observe(document.getElementById('overview'));sections.forEach(s=>{new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -52% 0px'}).observe(s)});
-let started=false;const dash=document.getElementById('dashboard');new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;document.querySelectorAll('[data-count]').forEach(el=>{const t=+el.dataset.count,s=el.dataset.suffix||'',st=performance.now();function run(n){const p=Math.min((n-st)/1200,1),v=t%1? (t*(1-Math.pow(1-p,3))).toFixed(1):Math.round(t*(1-Math.pow(1-p,3)));el.textContent=v+s;if(p<1)requestAnimationFrame(run)}requestAnimationFrame(run)})}},{threshold:.3}).observe(dash);
-const modal=document.getElementById('modal'),close=document.getElementById('close');document.querySelectorAll('.openmodal').forEach(b=>b.onclick=()=>{modal.classList.add('open');document.body.style.overflow='hidden'});function shut(){modal.classList.remove('open');document.body.style.overflow=''}close.onclick=shut;modal.onclick=e=>{if(e.target===modal)shut()};document.onkeydown=e=>{if(e.key==='Escape')shut()};document.getElementById('form').onsubmit=e=>{e.preventDefault();const b=e.target.querySelector('button');b.textContent='ส่งคำขอเรียบร้อย ✓';b.disabled=true;setTimeout(()=>{shut();e.target.reset();b.textContent='ส่งคำขอ Demo';b.disabled=false},1200)};
-</script>
-</body></html>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    menuBtn.addEventListener("click",()=>{
+      const open=navLinks.classList.toggle("open");
+      menuBtn.textContent=open?"✕":"☰";
+    });
+    navLinks.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{
+      navLinks.classList.remove("open");menuBtn.textContent="☰";
+    }));
+
+    const counters=document.querySelectorAll("[data-count]");
+    const counterObs=new IntersectionObserver(entries=>{
+      if(!entries[0].isIntersecting)return;
+      counters.forEach(el=>{
+        const target=Number(el.dataset.count),suffix=el.dataset.suffix||"";
+        const start=performance.now(),duration=1200;
+        function run(now){
+          const p=Math.min((now-start)/duration,1);
+          const eased=1-Math.pow(1-p,3);
+          const value=target%1===0?Math.round(target*eased):(target*eased).toFixed(2);
+          el.textContent=value+suffix;
+          if(p<1)requestAnimationFrame(run);
+        }
+        requestAnimationFrame(run);
+      });
+      counterObs.disconnect();
+    },{threshold:.35});
+    counterObs.observe(document.querySelector(".stats"));
+
+    const modal=document.getElementById("modal");
+    const closeModal=document.getElementById("closeModal");
+    document.querySelectorAll("[data-modal]").forEach(b=>b.addEventListener("click",()=>{
+      modal.classList.add("open");document.body.style.overflow="hidden";
+    }));
+    function close(){modal.classList.remove("open");document.body.style.overflow=""}
+    closeModal.addEventListener("click",close);
+    modal.addEventListener("click",e=>{if(e.target===modal)close()});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")close()});
+
+    document.getElementById("demoForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      const btn=e.currentTarget.querySelector("button");
+      btn.textContent="ส่งคำขอเรียบร้อย ✓";btn.disabled=true;
+      setTimeout(()=>{close();e.currentTarget.reset();btn.textContent="ส่งคำขอ Demo";btn.disabled=false},1200);
+    });
+
+    const sections=[...document.querySelectorAll("main section[id],footer[id]")];
+    const links=[...document.querySelectorAll(".nav-links a")];
+    const spy=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(!entry.isIntersecting)return;
+        links.forEach(link=>link.classList.toggle("active",link.getAttribute("href")==="#"+entry.target.id));
+      });
+    },{rootMargin:"-42% 0px -52% 0px"});
+    sections.forEach(s=>spy.observe(s));
+  </script>
+</body>
+</html>
