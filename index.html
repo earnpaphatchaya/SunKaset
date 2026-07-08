@@ -2,72 +2,99 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SunKaset</title>
-<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#17663b">
+<title>SunKaset | Professional Pitch UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Mitr',sans-serif}
-body{background:#f4fbf4;color:#355e3b}
-header{background:linear-gradient(#dff6df,#f4fbf4);text-align:center;padding:40px 20px 120px;position:relative;overflow:hidden}
-.sun{width:130px;height:130px;background:#ffd54f;border-radius:50%;margin:20px auto;position:relative;box-shadow:0 0 30px #ffe082;animation:float 3s ease-in-out infinite}
-.eye{width:10px;height:10px;background:#333;border-radius:50%;position:absolute;top:48px}.l{left:40px}.r{right:40px}
-.smile{width:45px;height:20px;border-bottom:4px solid #333;border-radius:0 0 30px 30px;position:absolute;left:42px;top:70px}
-@keyframes float{50%{transform:translateY(-8px)}}
-.hill{position:absolute;left:0;right:0;bottom:0;height:120px;background:#a5d6a7;border-radius:50% 50% 0 0}
-.farmer{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:70px}
-.container{max-width:1100px;margin:auto;padding:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 8px 20px rgba(0,0,0,.08)}
-.card h3{margin-bottom:10px}
-button{background:#66bb6a;color:#fff;border:none;padding:12px 20px;border-radius:25px;cursor:pointer}
-.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-top:20px}
-.feature{background:#e8f5e9;padding:18px;border-radius:18px;text-align:center}
-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:12px;box-shadow:0 -4px 12px rgba(0,0,0,.08)}
-nav div{text-align:center;color:#2e7d32}
-footer{text-align:center;padding:30px;color:#777;margin-bottom:70px}
+:root{--g900:#0b4d2d;--g800:#17663b;--g700:#23804b;--g600:#45a25f;--g300:#a8d5aa;--g200:#cae8cc;--g100:#e9f6ea;--g50:#f7fcf7;--yellow:#f6c949;--text:#1c3428;--muted:#65736b;--line:#dcecdf;--white:#fff;--shadow:0 16px 42px rgba(18,84,48,.10);--page:min(1440px,calc(100% - 44px))}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:"Anuphan",sans-serif;color:var(--text);background:#f9fcf9;line-height:1.65}a{text-decoration:none;color:inherit}button,input,select{font:inherit}.page{width:var(--page);margin:auto}.section{padding:72px 0}.title{display:flex;align-items:center;gap:16px;color:var(--g900);font-size:clamp(1.55rem,2.1vw,2.2rem);margin-bottom:26px}.title:after{content:"";height:2px;flex:1;background:linear-gradient(90deg,var(--g600),transparent)}
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;height:74px;background:rgba(255,255,255,.93);backdrop-filter:blur(16px);border-bottom:1px solid rgba(23,102,59,.08)}.navin{width:var(--page);height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:11px}.logo{width:45px;height:45px;border-radius:14px;background:var(--g100);display:grid;place-items:center;border:1px solid var(--g200)}.brand strong{display:block;color:var(--g900);font-size:1.35rem;line-height:1}.brand small{color:var(--muted)}.links{display:flex;align-items:center;gap:30px}.links a{padding:26px 0 21px;position:relative}.links a:after{content:"";position:absolute;left:0;right:0;bottom:15px;height:2px;background:var(--g800);transform:scaleX(0);transition:.2s}.links a:hover:after,.links a.active:after{transform:scaleX(1)}.btn{border:0;border-radius:12px;padding:13px 20px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.22s}.primary{background:linear-gradient(135deg,var(--g700),var(--g900));color:#fff;box-shadow:0 10px 24px rgba(23,102,59,.22)}.primary:hover{transform:translateY(-2px)}.outline{border:1px solid var(--g300);background:#fff;color:var(--g800)}.menu{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff}
+/* HERO */
+.hero{min-height:610px;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(circle at 14% 15%,#fff 0 11%,transparent 28%),linear-gradient(120deg,#f9fcf9,#e7f5e9)}.heroin{width:var(--page);margin:auto;display:grid;grid-template-columns:.92fr 1.08fr;gap:35px;align-items:center;padding:58px 0}.tag{display:inline-flex;align-items:center;gap:8px;background:var(--g100);color:var(--g800);padding:8px 13px;border-radius:999px;font-weight:600;font-size:.86rem;margin-bottom:16px}.dot{width:8px;height:8px;border-radius:50%;background:var(--g600);box-shadow:0 0 0 5px rgba(69,162,95,.13)}.copy h1{font-size:clamp(2.5rem,4.6vw,4.9rem);line-height:1.12;letter-spacing:-.035em;color:var(--g900);margin-bottom:21px}.copy p{font-size:1.07rem;color:#53655a;max-width:650px;margin-bottom:28px}.actions{display:flex;gap:13px;flex-wrap:wrap}.points{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);margin-top:27px;font-size:.88rem}.points span{display:flex;align-items:center;gap:7px}.check{width:20px;height:20px;border-radius:50%;background:var(--g100);color:var(--g800);display:grid;place-items:center;font-size:.72rem;font-weight:700}
+.visual{position:relative;min-height:500px}.scene{position:absolute;inset:25px 0 10px 7%;overflow:hidden;border-radius:34px;background:linear-gradient(#eef9f0 0 52%,#c9e9c7 52% 100%);box-shadow:var(--shadow);border:1px solid rgba(23,102,59,.08)}.scene:after{content:"";position:absolute;left:-10%;right:-10%;bottom:-30%;height:66%;border-radius:50%;background:repeating-linear-gradient(165deg,#7ebc64 0 18px,#9ed37e 18px 36px);transform:rotate(-3deg)}.mount{position:absolute;left:-8%;right:-8%;bottom:120px;height:220px;background:radial-gradient(ellipse at 20% 100%,#8fbe88 0 43%,transparent 44%),radial-gradient(ellipse at 48% 100%,#b7dcaf 0 48%,transparent 49%),radial-gradient(ellipse at 78% 100%,#86b77e 0 44%,transparent 45%)}.cloud{position:absolute;width:110px;height:32px;border-radius:999px;background:rgba(255,255,255,.9);box-shadow:24px -17px 0 -5px #fff,55px -7px 0 -9px #fff;animation:cloud 5s ease-in-out infinite alternate}.c1{top:82px;left:9%}.c2{top:145px;right:4%;transform:scale(.72)}@keyframes cloud{to{translate:15px 0}}
+.sun{position:absolute;z-index:7;right:17%;top:28px;width:105px;height:105px;border-radius:50%;background:radial-gradient(circle at 36% 32%,#fff08f,#ffd655 50%,#f2b927);box-shadow:0 0 0 12px rgba(246,201,73,.08),0 15px 30px rgba(242,185,39,.25);animation:float 4s ease-in-out infinite}.sun:before,.sun:after{content:"";position:absolute;top:42px;width:9px;height:9px;background:#54361f;border-radius:50%}.sun:before{left:31px}.sun:after{right:31px}.smile{position:absolute;width:32px;height:17px;left:37px;top:56px;border-bottom:4px solid #54361f;border-radius:0 0 22px 22px}@keyframes float{50%{transform:translateY(-8px) rotate(2deg)}}.ray{position:absolute;left:50%;top:50%;width:5px;height:22px;border-radius:99px;background:#efb82d;transform-origin:50% 64px}.r1{transform:translate(-50%,-50%) rotate(0) translateY(-72px)}.r2{transform:translate(-50%,-50%) rotate(45deg) translateY(-72px)}.r3{transform:translate(-50%,-50%) rotate(90deg) translateY(-72px)}.r4{transform:translate(-50%,-50%) rotate(135deg) translateY(-72px)}.r5{transform:translate(-50%,-50%) rotate(180deg) translateY(-72px)}.r6{transform:translate(-50%,-50%) rotate(225deg) translateY(-72px)}.r7{transform:translate(-50%,-50%) rotate(270deg) translateY(-72px)}.r8{transform:translate(-50%,-50%) rotate(315deg) translateY(-72px)}
+.house{position:absolute;z-index:6;left:19%;bottom:103px;width:170px;height:105px;border-radius:10px;background:#c59864;box-shadow:0 12px 22px rgba(0,0,0,.15)}.house:before{content:"";position:absolute;left:-17px;top:-43px;width:204px;height:62px;background:#664b3b;clip-path:polygon(50% 0,100% 76%,92% 100%,8% 100%,0 76%)}.panel{position:absolute;z-index:2;left:35px;top:-35px;width:105px;height:45px;border:4px solid #31556c;border-radius:4px;transform:skewX(-16deg);background:linear-gradient(rgba(255,255,255,.28) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.28) 1px,transparent 1px),linear-gradient(135deg,#245c78,#4d94b2);background-size:25px 15px}.door{position:absolute;left:68px;bottom:0;width:34px;height:59px;border-radius:8px 8px 0 0;background:#684a39}.window{position:absolute;top:28px;width:32px;height:28px;border:4px solid #684a39;background:#c7e9ef}.wl{left:18px}.wr{right:18px}.tower{position:absolute;z-index:5;left:56%;bottom:104px;width:10px;height:200px;background:#68786e}.tower:after{content:"";position:absolute;inset:0 -35px;background:linear-gradient(64deg,transparent 48%,#68786e 49% 51%,transparent 52%),linear-gradient(-64deg,transparent 48%,#68786e 49% 51%,transparent 52%);background-size:100% 42px}.farmer{position:absolute;z-index:8;right:8%;bottom:68px;width:150px;height:245px}.head{position:absolute;left:48px;top:37px;width:64px;height:75px;border-radius:46%;background:#e7ab70}.hat{position:absolute;left:20px;top:13px;width:120px;height:29px;border-radius:50%;background:#d5a34c;transform:rotate(6deg)}.hat:after{content:"";position:absolute;left:31px;top:-19px;width:62px;height:32px;border-radius:50% 50% 20% 20%;background:#e0b35a}.body{position:absolute;left:34px;top:104px;width:90px;height:128px;border-radius:34px 34px 18px 18px;background:#408b59}.tablet{position:absolute;left:42px;top:136px;width:76px;height:56px;border:6px solid #354b45;border-radius:8px;background:#cbefdf;transform:rotate(-4deg)}.floatcard{position:absolute;z-index:10;padding:11px 14px;border-radius:14px;background:rgba(255,255,255,.88);box-shadow:0 14px 28px rgba(18,77,45,.14);font-size:.82rem}.floatcard strong{display:block;color:var(--g900);font-size:1rem}.fc1{left:2%;bottom:48px}.fc2{right:2%;top:158px}
+/* FEATURES */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.card{background:#fff;border:1px solid var(--g200);border-radius:20px;padding:25px;box-shadow:0 8px 24px rgba(18,77,45,.05);transition:.22s}.card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}.icon{width:54px;height:54px;border-radius:17px;background:var(--g100);display:grid;place-items:center;font-size:1.55rem;margin-bottom:17px}.card h3{color:var(--g900);font-size:1.08rem;margin-bottom:9px}.card p{color:var(--muted);font-size:.91rem}
+/* CONTENT */
+.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:start}.panelbox{background:rgba(255,255,255,.78);border:1px solid rgba(23,102,59,.08);border-radius:27px;padding:25px;box-shadow:var(--shadow)}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fff}table{width:100%;min-width:760px;border-collapse:collapse}thead{background:var(--g100);color:var(--g900)}th,td{padding:15px 14px;text-align:left;border-bottom:1px solid #edf4ee;font-size:.88rem}tbody tr:last-child td{border-bottom:0}.status{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border-radius:999px;font-size:.74rem;font-weight:600}.done{background:#e1f5e7;color:#1b7846}.progress{background:#fff5cc;color:#9a6a04}.pending{background:#eef1ef;color:#68736d}.sdot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px}.metric{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;min-height:130px}.metric .emoji{font-size:1.45rem}.metric small{display:block;color:#45564c;font-weight:600;margin-top:5px}.metric b{display:block;color:var(--g900);font-size:1.65rem;line-height:1.2;margin:4px 0}.metric span{font-size:.71rem;color:#7c8881}.dashbottom{display:grid;grid-template-columns:.86fr 1.14fr;gap:14px}.map,.chart{min-height:222px;border:1px solid var(--line);border-radius:17px;background:#fff;overflow:hidden;position:relative}.map{background:linear-gradient(25deg,transparent 49%,rgba(255,255,255,.5) 50% 51%,transparent 52%),linear-gradient(-25deg,transparent 49%,rgba(255,255,255,.44) 50% 51%,transparent 52%),repeating-linear-gradient(90deg,#486c3c 0 30px,#638b4f 30px 62px);background-size:70px 50px,70px 50px,auto}.heat{position:absolute;inset:30px 24px 33px;border:3px solid #f6c949;clip-path:polygon(12% 8%,91% 4%,98% 75%,74% 94%,6% 84%,0 26%);background:radial-gradient(circle at 50% 50%,rgba(221,67,51,.78),transparent 19%),radial-gradient(circle at 36% 42%,rgba(252,191,50,.78),transparent 27%),radial-gradient(circle at 67% 56%,rgba(84,191,119,.82),transparent 35%),rgba(78,179,110,.44)}.scale{position:absolute;left:14px;right:14px;bottom:11px;display:flex;align-items:center;gap:7px;color:#fff;font-size:.66rem;text-shadow:0 1px 2px #000}.bar{height:7px;flex:1;border-radius:99px;background:linear-gradient(90deg,#77bb68,#e3d95a,#ed8b3e,#ba3e34)}.chart{padding:14px}.charthead{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.charthead strong{font-size:.87rem}.chart select{border:1px solid var(--line);border-radius:8px;padding:5px 8px;color:var(--muted);font-size:.7rem}.chart svg{width:100%;height:170px}.gridline{stroke:#e8efe9;stroke-width:1}.line{fill:none;stroke:var(--g600);stroke-width:3}.fill{fill:url(#grad);opacity:.58}.point{fill:#fff;stroke:var(--g700);stroke-width:2.5}
+/* TECH / CTA / FOOTER */
+.tech{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}.techcard{background:#fff;border:1px solid var(--line);border-radius:17px;min-height:140px;display:grid;place-items:center;align-content:center;text-align:center;gap:7px}.techicon{width:47px;height:47px;border-radius:14px;display:grid;place-items:center;font-weight:700;font-size:1.35rem}.t1{background:#fff0e7;color:#e85d22}.t2{background:#e8f3ff;color:#1b75bb}.t3{background:#fff8c9;color:#8a7100}.t4{background:#eef4ff;color:#356da8}.t5{background:#f2f6ff;color:#1f74d5}.t6{background:var(--g100);color:var(--g800)}.techcard strong{font-size:.88rem}.techcard span{font-size:.7rem;color:var(--muted)}.cta{margin-top:66px;border-radius:30px;padding:45px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center;background:linear-gradient(135deg,var(--g800),var(--g900));color:#fff}.cta h2{font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.25;margin-bottom:8px}.cta p{color:rgba(255,255,255,.75)}.cta .actions{justify-content:flex-end}.cta .primary{background:#fff;color:var(--g900);box-shadow:none}.cta .outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.4)}footer{margin-top:72px;background:#eff8f0;border-top:1px solid var(--line)}.foot{width:var(--page);margin:auto;padding:42px 0 25px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:38px}.foot h4{color:var(--g900);margin-bottom:10px}.foot p,.foot a{display:block;color:var(--muted);font-size:.83rem;margin-bottom:7px}.copyright{width:var(--page);margin:auto;padding:17px 0 23px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#718078;font-size:.77rem}
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:2000;display:none;place-items:center;padding:20px;background:rgba(8,32,20,.55);backdrop-filter:blur(8px)}.modal.open{display:grid}.modalbox{width:min(520px,100%);background:#fff;border-radius:23px;padding:27px;box-shadow:0 30px 80px rgba(0,0,0,.22)}.modaltop{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.close{width:38px;height:38px;border:0;border-radius:10px;background:var(--g100);color:var(--g900)}.form{display:grid;gap:12px}.form label{font-size:.82rem;font-weight:600;color:#43564b}.form input,.form select{width:100%;margin-top:5px;padding:12px;border:1px solid var(--line);border-radius:11px;outline:none}.form input:focus,.form select:focus{border-color:var(--g600);box-shadow:0 0 0 4px rgba(69,162,95,.12)}
+@media(max-width:1180px){.features{grid-template-columns:repeat(2,1fr)}.layout{grid-template-columns:1fr}.tech{grid-template-columns:repeat(3,1fr)}.links{gap:19px}}
+@media(max-width:900px){.links,.navbtn{display:none}.menu{display:grid;place-items:center}.links.open{display:grid;position:absolute;left:18px;right:18px;top:67px;padding:11px;border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:var(--shadow)}.links.open a{padding:11px 13px}.links.open a:after{display:none}.heroin{grid-template-columns:1fr}.copy{text-align:center}.copy p{margin-left:auto;margin-right:auto}.actions,.points{justify-content:center}.visual{min-height:490px}.cta{grid-template-columns:1fr;text-align:center}.cta .actions{justify-content:center}.foot{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:680px){:root{--page:calc(100% - 24px)}.section{padding:54px 0}.brand small{display:none}.copy h1{font-size:clamp(2.15rem,11vw,3.2rem)}.visual{min-height:410px}.scene{inset:18px 0 10px}.house{left:8%;transform:scale(.78);transform-origin:bottom left}.tower{left:52%;transform:scale(.8);transform-origin:bottom}.farmer{right:-4%;transform:scale(.76);transform-origin:bottom right}.sun{width:88px;height:88px;right:9%}.sun:before,.sun:after{top:35px}.sun:before{left:26px}.sun:after{right:26px}.smile{left:30px;top:47px;width:29px}.features{grid-template-columns:1fr}.panelbox{padding:17px;border-radius:21px}.metrics{grid-template-columns:repeat(2,1fr)}.dashbottom{grid-template-columns:1fr}.tech{grid-template-columns:repeat(2,1fr)}.cta{padding:32px 21px}.foot{grid-template-columns:1fr}.copyright{flex-direction:column}.floatcard{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<header>
-<div class="sun"><div class="eye l"></div><div class="eye r"></div><div class="smile"></div></div>
-<h1>☀️ SunKaset</h1>
-<p>นวัตกรรมเกษตรยุคใหม่ ด้วยพลังงานสะอาด</p><br>
-<button>เริ่มใช้งาน</button>
-<div class="hill"></div>
-<div class="farmer">👨‍🌾</div>
+<header class="nav">
+  <div class="navin">
+    <a class="brand" href="#overview"><div class="logo">🌱</div><div><strong>SunKaset</strong><small>Smart Solar Farming</small></div></a>
+    <nav class="links" id="navlinks"><a class="active" href="#overview">Overview</a><a href="#features">Features</a><a href="#roadmap">Roadmap</a><a href="#dashboard">Dashboard</a><a href="#technology">Technology</a><a href="#contact">Contact</a></nav>
+    <button class="btn primary navbtn openmodal">Request Demo ↗</button>
+    <button class="menu" id="menu" aria-label="เปิดเมนู">☰</button>
+  </div>
 </header>
-
-<div class="container">
-<div class="card">
-<h3>ยินดีต้อนรับ</h3>
-<p>SunKaset ช่วยบริหารจัดการฟาร์ม วิเคราะห์แสงแดด ตรวจสอบสภาพแวดล้อม และสนับสนุนการใช้พลังงานแสงอาทิตย์</p>
-</div>
-
-<h2 style="margin:20px 0">บริการ</h2>
-<div class="features">
-<div class="feature">☀️<br>วิเคราะห์แสงแดด</div>
-<div class="feature">💧<br>ระบบน้ำ</div>
-<div class="feature">🌱<br>สุขภาพพืช</div>
-<div class="feature">⚡<br>Solar Energy</div>
-<div class="feature">🚜<br>เครื่องจักร</div>
-<div class="feature">📈<br>รายงานผล</div>
-</div>
-
-<h2 style="margin:25px 0">แดชบอร์ด</h2>
-<div class="grid">
-<div class="card"><h3>☀️ ความเข้มแสง</h3><h1>82%</h1></div>
-<div class="card"><h3>🌡️ อุณหภูมิ</h3><h1>31°C</h1></div>
-<div class="card"><h3>💧 ความชื้น</h3><h1>68%</h1></div>
-<div class="card"><h3>🔋 พลังงาน</h3><h1>95%</h1></div>
-</div>
-</div>
-
-<footer>© 2026 SunKaset</footer>
-<nav>
-<div>🏠<br>หน้าหลัก</div>
-<div>📊<br>วิเคราะห์</div>
-<div>🌾<br>ฟาร์ม</div>
-<div>👤<br>โปรไฟล์</div>
-</nav>
-</body>
-</html>
+<main>
+<section class="hero" id="overview">
+  <div class="heroin">
+    <div class="copy">
+      <div class="tag"><span class="dot"></span>GeoAI × Solar × Sustainable Agriculture</div>
+      <h1>ยกระดับเกษตรกรด้วย GeoAI และนวัตกรรมพลังงานแสงอาทิตย์</h1>
+      <p>SunKaset ผสานข้อมูลดาวเทียม ปัญญาประดิษฐ์ และระบบพลังงานสะอาด เพื่อช่วยวางแผนฟาร์ม ลดต้นทุน และสร้างรายได้ใหม่จากคาร์บอนเครดิต</p>
+      <div class="actions"><a class="btn primary" href="#dashboard">Explore Dashboard ↗</a><button class="btn outline openmodal">Watch Demo ▶</button></div>
+      <div class="points"><span><i class="check">✓</i>วิเคราะห์พื้นที่ด้วย GeoAI</span><span><i class="check">✓</i>คำนวณพลังงาน Solar</span><span><i class="check">✓</i>ประเมิน Carbon Credit</span></div>
+    </div>
+    <div class="visual">
+      <div class="scene">
+        <div class="cloud c1"></div><div class="cloud c2"></div><div class="mount"></div>
+        <div class="sun"><i class="ray r1"></i><i class="ray r2"></i><i class="ray r3"></i><i class="ray r4"></i><i class="ray r5"></i><i class="ray r6"></i><i class="ray r7"></i><i class="ray r8"></i><i class="smile"></i></div>
+        <div class="house"><div class="panel"></div><div class="window wl"></div><div class="window wr"></div><div class="door"></div></div>
+        <div class="tower"></div>
+        <div class="farmer"><div class="hat"></div><div class="head"></div><div class="body"></div><div class="tablet"></div></div>
+        <div class="floatcard fc1"><strong>☀️ 92%</strong>Solar Potential</div><div class="floatcard fc2"><strong>🌱 87%</strong>Crop Health</div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="features"><div class="page"><h2 class="title">2. Key Features</h2><div class="features">
+  <article class="card"><div class="icon">🛰️</div><h3>GeoAI Assessment</h3><p>วิเคราะห์ภาพถ่ายดาวเทียมและโครงสร้างพื้นที่ เพื่อกำหนดขนาดระบบ Solar ที่เหมาะสมกับแต่ละฟาร์ม</p></article>
+  <article class="card"><div class="icon">🌿</div><h3>Smart Farm Analytics</h3><p>ติดตามข้อมูลดิน อากาศ น้ำ และสุขภาพพืชแบบเรียลไทม์ เพื่อสนับสนุนการตัดสินใจ</p></article>
+  <article class="card"><div class="icon">♻️</div><h3>Carbon Credit Engine</h3><p>คำนวณการลดก๊าซเรือนกระจกอัตโนมัติ พร้อมประเมินโอกาสสร้างรายได้จากคาร์บอนเครดิต</p></article>
+  <article class="card"><div class="icon">🤖</div><h3>AI Crop Advisor</h3><p>AI แนะนำช่วงเวลารดน้ำ การใช้พลังงาน และการดูแลพืชเพื่อช่วยลดต้นทุน</p></article>
+</div></div></section>
+<section class="section" style="padding-top:8px"><div class="page layout">
+  <section class="panelbox" id="roadmap"><h2 class="title">3. Project Roadmap</h2><div class="tablewrap"><table><thead><tr><th>Phase</th><th>Activity</th><th>Description</th><th>Timeline</th><th>Status</th></tr></thead><tbody>
+    <tr><td>Week 1</td><td>Research & Concept</td><td>วิเคราะห์ตลาดและความต้องการ</td><td>May 1–7</td><td><span class="status done"><i class="sdot"></i>Completed</span></td></tr>
+    <tr><td>Week 2</td><td>GeoAI Development</td><td>พัฒนาโมเดลศักยภาพแสงอาทิตย์</td><td>May 8–14</td><td><span class="status done"><i class="sdot"></i>Completed</span></td></tr>
+    <tr><td>Week 3</td><td>UI/UX Implementation</td><td>ออกแบบและพัฒนาหน้าจอระบบ</td><td>May 15–21</td><td><span class="status progress"><i class="sdot"></i>In Progress</span></td></tr>
+    <tr><td>Week 4</td><td>Refinement & Testing</td><td>ทดสอบและปรับปรุงประสิทธิภาพ</td><td>May 22–28</td><td><span class="status pending"><i class="sdot"></i>Pending</span></td></tr>
+    <tr><td>Week 5</td><td>Final Pitch</td><td>จัดทำ Pitch Deck และสาธิตระบบ</td><td>May 29–Jun 4</td><td><span class="status pending"><i class="sdot"></i>Pending</span></td></tr>
+  </tbody></table></div></section>
+  <section class="panelbox" id="dashboard"><h2 class="title">4. Dashboard Preview</h2><div class="metrics">
+    <div class="metric"><div class="emoji">☀️</div><small>Solar Potential</small><b data-count="92" data-suffix="%">0%</b><span>Excellent</span></div>
+    <div class="metric"><div class="emoji">🌱</div><small>Crop Health</small><b data-count="87" data-suffix="%">0%</b><span>Good</span></div>
+    <div class="metric"><div class="emoji">💧</div><small>Soil Moisture</small><b data-count="68" data-suffix="%">0%</b><span>Moderate</span></div>
+    <div class="metric"><div class="emoji">☁️</div><small>Carbon Reduction</small><b data-count="1.2" data-suffix=" t">0 t</b><span>CO₂ this month</span></div>
+  </div><div class="dashbottom"><div class="map"><div class="heat"></div><div class="scale"><span>Low</span><i class="bar"></i><span>High</span></div></div><div class="chart"><div class="charthead"><strong>Energy Generation (kWh)</strong><select><option>This Month</option><option>Last Month</option></select></div><svg viewBox="0 0 520 190"><defs><linearGradient id="grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#61b56f" stop-opacity=".55"/><stop offset="1" stop-color="#61b56f" stop-opacity=".04"/></linearGradient></defs><g><line class="gridline" x1="35" y1="20" x2="500" y2="20"/><line class="gridline" x1="35" y1="60" x2="500" y2="60"/><line class="gridline" x1="35" y1="100" x2="500" y2="100"/><line class="gridline" x1="35" y1="140" x2="500" y2="140"/><line class="gridline" x1="35" y1="178" x2="500" y2="178"/></g><path class="fill" d="M35 145 C80 110 100 120 145 92 S215 74 260 120 S335 98 380 54 S445 94 500 62 L500 178 L35 178Z"/><path class="line" d="M35 145 C80 110 100 120 145 92 S215 74 260 120 S335 98 380 54 S445 94 500 62"/><circle class="point" cx="35" cy="145" r="4"/><circle class="point" cx="145" cy="92" r="4"/><circle class="point" cx="260" cy="120" r="4"/><circle class="point" cx="380" cy="54" r="4"/><circle class="point" cx="500" cy="62" r="4"/></svg></div></div></section>
+</div></section>
+<section class="section" id="technology"><div class="page"><h2 class="title">5. Technology Stack</h2><div class="tech">
+  <div class="techcard"><i class="techicon t1">5</i><strong>HTML5</strong><span>Structure</span></div><div class="techcard"><i class="techicon t2">3</i><strong>CSS3</strong><span>Styling</span></div><div class="techcard"><i class="techicon t3">JS</i><strong>JavaScript</strong><span>Interactivity</span></div><div class="techcard"><i class="techicon t4">Py</i><strong>Python</strong><span>AI & Analytics</span></div><div class="techcard"><i class="techicon t5">⌖</i><strong>Google Maps</strong><span>GIS & Mapping</span></div><div class="techcard"><i class="techicon t6">☁</i><strong>Cloud</strong><span>Deployment</span></div>
+</div><div class="cta"><div><h2>เปลี่ยนข้อมูลฟาร์มให้เป็นการตัดสินใจที่แม่นยำ</h2><p>ดูตัวอย่างการวิเคราะห์พื้นที่ พลังงาน Solar สุขภาพพืช และการลดคาร์บอนในหน้าจอเดียว</p></div><div class="actions"><button class="btn primary openmodal">Request Demo</button><a class="btn outline" href="#features">Explore Features</a></div></div></div></section>
+</main>
+<footer id="contact"><div class="foot"><div><a class="brand" href="#overview"><div class="logo">🌱</div><div><strong>SunKaset</strong><small>Smart Solar Farming</small></div></a><p style="margin-top:13px">Smart Farming. Clean Energy. Better Future.</p></div><div><h4>Our Mission</h4><p>เพิ่มศักยภาพเกษตรกรด้วยเทคโนโลยีที่แม่นยำและยั่งยืน</p></div><div><h4>Quick Links</h4><a href="#features">Features</a><a href="#roadmap">Roadmap</a><a href="#dashboard">Dashboard</a></div><div><h4>Contact Us</h4><a href="mailto:hello@sunkaset.com">✉ hello@sunkaset.com</a><a href="tel:+66123456789">☎ +66 12 345 6789</a><p>Bangkok, Thailand</p></div></div><div class="copyright"><span>© 2026 SunKaset</span><span>Professional Pitch Deck UI</span></div></footer>
+<div class="modal" id="modal"><div class="modalbox"><div class="modaltop"><div><div class="tag" style="margin:0 0 7px">SunKaset Demo</div><h2>ขอทดลองใช้งานระบบ</h2></div><button class="close" id="close">✕</button></div><form class="form" id="form"><label>ชื่อ–นามสกุล<input required placeholder="กรอกชื่อของคุณ"></label><label>อีเมล<input type="email" required placeholder="name@example.com"></label><label>ประเภทผู้ใช้งาน<select required><option value="">เลือกประเภท</option><option>เกษตรกร</option><option>นักศึกษา / นักวิจัย</option><option>บริษัท / นักลงทุน</option><option>หน่วยงานภาครัฐ</option></select></label><button class="btn primary" type="submit">ส่งคำขอ Demo</button></form></div></div>
+<script>
+const menu=document.getElementById('menu'),nav=document.getElementById('navlinks');menu.onclick=()=>{nav.classList.toggle('open');menu.textContent=nav.classList.contains('open')?'✕':'☰'};nav.querySelectorAll('a').forEach(a=>a.onclick=()=>{nav.classList.remove('open');menu.textContent='☰'});
+const sections=document.querySelectorAll('main section[id],footer[id]'),links=document.querySelectorAll('.links a');new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -52% 0px'}).observe(document.getElementById('overview'));sections.forEach(s=>{new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-40% 0px -52% 0px'}).observe(s)});
+let started=false;const dash=document.getElementById('dashboard');new IntersectionObserver(es=>{if(es[0].isIntersecting&&!started){started=true;document.querySelectorAll('[data-count]').forEach(el=>{const t=+el.dataset.count,s=el.dataset.suffix||'',st=performance.now();function run(n){const p=Math.min((n-st)/1200,1),v=t%1? (t*(1-Math.pow(1-p,3))).toFixed(1):Math.round(t*(1-Math.pow(1-p,3)));el.textContent=v+s;if(p<1)requestAnimationFrame(run)}requestAnimationFrame(run)})}},{threshold:.3}).observe(dash);
+const modal=document.getElementById('modal'),close=document.getElementById('close');document.querySelectorAll('.openmodal').forEach(b=>b.onclick=()=>{modal.classList.add('open');document.body.style.overflow='hidden'});function shut(){modal.classList.remove('open');document.body.style.overflow=''}close.onclick=shut;modal.onclick=e=>{if(e.target===modal)shut()};document.onkeydown=e=>{if(e.key==='Escape')shut()};document.getElementById('form').onsubmit=e=>{e.preventDefault();const b=e.target.querySelector('button');b.textContent='ส่งคำขอเรียบร้อย ✓';b.disabled=true;setTimeout(()=>{shut();e.target.reset();b.textContent='ส่งคำขอ Demo';b.disabled=false},1200)};
+</script>
+</body></html>
